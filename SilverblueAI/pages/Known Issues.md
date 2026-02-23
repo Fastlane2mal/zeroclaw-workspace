@@ -1,0 +1,93 @@
+# Known Issues
+
+## Active Issues
+
+### Groq Rate Limits (Low Priority)
+- **What happens**: If you send many rapid messages using a Groq cloud model, you'll hit a 429 rate limit error
+- **Root cause**: Groq free tier allows 6,000-12,000 tokens per minute depending on model
+- **Workaround**: Switch to a local model (smollm2 or qwen2.5) — no rate limits
+- **Permanent fix**: Not planned — free tier limitation, not a bug
+- **Affects**: Groq models only (llama-3.3-70b, llama-3.1-8b, mixtral-8x7b)
+
+---
+
+### AnythingLLM LLM Settings Reset on Upgrade (Known Behaviour)
+- **What happens**: After upgrading the AnythingLLM container, LLM provider settings are wiped
+- **Root cause**: v1.11.0 migrated system preferences to a new endpoint — a known breaking change
+- **Workaround**: After every upgrade, reconfigure in Settings → LLM Preference:
+  - Provider: Generic OpenAI
+  - Base URL: `http://100.110.112.76:4000/v1`
+  - API Key: LITELLM_MASTER_KEY from `~/.silverblue-ai-config`
+  - Model: `llama-3.3-70b`
+  - Context Window: 8,192
+- **Permanent fix**: Not planned — accept as part of upgrade process
+
+---
+
+### AnythingLLM Document Sync Is Manual (By Design)
+- **What happens**: Editing a Logseq page does not automatically update AnythingLLM
+- **Root cause**: Live Document Sync is a Desktop-only feature — not available in Docker version
+- **Workaround**: Re-upload changed files via the AnythingLLM web UI after editing
+- **Permanent fix**: Install AnythingLLM Desktop on Windows PC — would give automatic sync watching the Logseq pages folder directly
+
+---
+
+## Resolved Issues (Reference)
+
+### LiteLLM Deadlock (Resolved — Session 14)
+- **What happened**: All LiteLLM requests hung indefinitely, no timeout, no errors
+- **Root cause**: `update_spend` background job in Postgres database deadlocked and blocked all HTTP requests
+- **Fix**: Removed the database stack entirely. LiteLLM now runs stateless.
+- **Rule**: Never add `database_url` to LiteLLM config.yaml
+
+---
+
+### GDM Suspend During SSH Sessions (Resolved — Session 21)
+- **What happened**: Broadcast messages appeared during SSH sessions: "The system will suspend now!" — then the SSH connection dropped
+- **Root cause**: GDM (GNOME Display Manager) had its own idle/suspend timer, independent of systemd sleep settings
+- **Fix**: Disabled GDM entirely (`sudo systemctl disable gdm`) — the server is headless and doesn't need it
+- **Side benefit**: Freed ~200-300MB RAM
+
+---
+
+### Environment Variables Not Reaching LiteLLM Container (Resolved — Session 15)
+- **What happened**: LiteLLM couldn't authenticate to Groq or Claude — API keys appeared missing
+- **Root cause**: `EnvironmentFile=` was in the `[Service]` section of the quadlet file. This sets variables for the systemd process only, not for the container.
+- **Fix**: Moved `EnvironmentFile=` to the `[Container]` section
+- **Verify fix works**: `podman exec litellm printenv | grep ANTHROPIC_API_KEY` — should show the actual key
+
+---
+
+### OpenClaw Rate Limit Errors (Resolved — Session 20, by removal)
+- **What happened**: Every single OpenClaw interaction failed with: `413 Request too large for model llama-3.1-8b-instant: Limit 6000, Requested 13032`
+- **Root cause**: OpenClaw sends 13,000+ tokens per request (system prompts + workspace + tool definitions + history). Groq free tier limit is 6,000-12,000 TPM.
+- **Fix**: Removed OpenClaw. Replaced with AnythingLLM which doesn't have this problem.
+
+---
+
+### OpenClaw Security CVEs (Resolved — Session 15 and 20, by removal)
+- **What happened**: Three CVEs discovered affecting OpenClaw versions in use:
+  - CVE-2026-25253 (CVSS 8.8): 1-click remote code execution via token exfiltration
+  - CVE-2026-25157 (CVSS 7.8): SSH command injection
+  - CVE-2026-24763 (CVSS 8.8): Container sandbox escape
+- **Fix**: OpenClaw permanently removed in Session 20
+
+---
+
+### Storage Mount Confusion (Resolved — Session 7)
+- **What happened**: `/dev/sda` and `/dev/sdb` swapped between boots on some hardware configurations, causing the wrong drive to mount as the OS drive
+- **Fix**: Always use UUIDs in `/etc/fstab`, never device names
+- **How to get UUID**: `sudo blkid /dev/sdX1`
+
+---
+
+## If Something Goes Wrong (Quick Reference)
+1. Check services: `systemctl --user status ollama litellm`
+2. Check logs: `journalctl --user -u ollama -n 50` or `podman logs litellm --tail 50`
+3. Check API: `curl http://localhost:4000/health -H "Authorization: Bearer ${LITELLM_MASTER_KEY}"`
+4. Check resources: `free -h && df -h /mnt/hdd`
+5. Last resort: Reboot — all services auto-start on boot
+
+## Related
+- [[Commands Reference]] — useful diagnostic commands
+- [[Decisions]] — why certain design choices prevent recurring issues

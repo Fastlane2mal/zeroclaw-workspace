@@ -1,0 +1,39 @@
+# SQLite databases (binary, large, changes constantly)
+*.db
+*.db-shm
+*.db-wal
+
+# Memory directory (ZeroClaw internal)
+memory/
+
+# State files (ZeroClaw internal)
+state/
+
+# Telegram downloaded files (potentially large media)
+telegram_files/
+
+# Cron job databases
+cron/*.db
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Temporary files
+*.tmp
+*.temp
+*~
+*.swp
+*.swo
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Secrets and credentials
+SilverblueAI/pages/Fedora-password-keys.txt
