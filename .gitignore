@@ -37,3 +37,6 @@ Thumbs.db
 
 # Secrets and credentials
 SilverblueAI/pages/Fedora-password-keys.txt
+
+# SilverblueAI documentation (not ingested into ZeroClaw)
+SilverblueAI/
