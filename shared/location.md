@@ -1,15 +1,37 @@
 # Location Profile
 - ## Primary Location
-  
-  **South Shields, North East England**
-  
-  ---
-- ## Notes for Frank
-- Factor in seasonal produce available in the North East of England
-- South Shields has good access to fresh fish and seafood (North Sea coast)
-  
-  ---
-- ## Notes for Ziggy
+- **Town:** South Shields
+- **Region:** North East England
+- **County:** Tyne and Wear
+- **Country:** United Kingdom
+- **Postcode area:** NE33/NE34
+- ## Nearby Cities (for events, shopping, gigs)
+- **Newcastle upon Tyne** — 8 miles (major city, main venue location)
+- **Sunderland** — 4 miles
+- **Durham** — 17 miles
+- **Middlesbrough** — 30 miles
+- ## Seasonal Produce (UK Calendar)
+- ### Spring (March–May)
+- Asparagus, radishes, spring greens, spring onions, rhubarb, new potatoes
+- Jersey Royal potatoes (April/May specialty)
+- ### Summer (June–August)
+- Strawberries, raspberries, peas, broad beans, courgettes, tomatoes
+- Sweetcorn, runner beans, beetroot, lettuce
+- ### Autumn (September–November)
+- Apples, pears, plums, squash, pumpkins, beetroot, kale
+- Blackberries, chestnuts, wild mushrooms
+- ### Winter (December–February)
+- Root vegetables (parsnips, turnips, swede, carrots)
+- Brussels sprouts, leeks, cabbage, cauliflower
+- Stored apples and pears
+- ## Local Food Culture
+- North East specialties: Stottie bread, pease pudding, pan haggerty
+- Coastal location: Fresh fish available (local fishmongers)
+- [Add local farmers markets, fish markets, specialty shops you use]
+- ## Climate Notes
+- Temperate maritime climate
+- Growing season: April–October
+- Frost risk: November–March
 - Primary venue area: Tyne and Wear — Newcastle, Sunderland, South Shields
 - Secondary range: wider North East — Middlesbrough, Durham
 - Malcolm may travel further for the right act — flag major shows in Leeds, 
