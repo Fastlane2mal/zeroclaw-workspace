@@ -1,8 +1,8 @@
 # Silverblue AI Workspace — Development State
 
 **Last updated:** 2026-02-24  
-**Current phase:** Phase 8 — Frank (Meal Planner) full implementation  
-**Status:** Ready to start — next Claude session
+**Current phase:** Phase 8 — Logseq setup  
+**Status:** Ready to start
 
 ---
 
@@ -25,14 +25,6 @@
 - Frank, Ziggy, neutral mode confirmed working in testing
 - Bob self-managing project from workspace via Telegram ✅
 
-### All Persona Files ✅
-- FRANK.md — reads dietary-profile.md, meal_plan.md on activation
-- PENNY.md — reads progress-log.md, music-profile.md on activation
-- BOB.md — reads STATE.md, TODO.md, user-profile.md on activation
-- LEN.md — reads user-profile.md on activation
-- ZIGGY.md — reads music-profile.md, location.md, watchlist.md on activation
-- JOY.md — reads travel-profile.md, dietary-profile.md, location.md on activation
-
 ### Dual-Mode Workflow ✅
 - Bob (Telegram): day-to-day tasks, file edits, quick commands, status updates
 - Claude (claude.ai): planning, architecture, generating larger content
@@ -41,30 +33,51 @@
 
 ## What's Next
 
-### Phase 8: Frank (Meal Planner) ⬅️ NEXT CLAUDE SESSION
+### Phase 8: Logseq Setup ⬅️ CURRENT FOCUS
 
-#### Open questions to resolve first
-- Can ZeroClaw read SQLite (food.db) directly, or does Frank need a markdown export?
-- What is the ZeroClaw cron payload format — how is the message body set?
+Logseq is being prioritised before Frank's full implementation because:
+- Shared profiles (dietary, health, travel, music) need filling in with real data
+- Editing markdown tables in a terminal is impractical
+- Logseq on Windows reads/writes workspace files directly via Samba
+- Once set up, all shared profiles can be filled in comfortably
+- Frank's recipe research feature also needs dietary-profile.md populated first
 
-#### Shared profiles
-- [ ] Complete shared/dietary-profile.md with real Malcolm + Jen data
-- [ ] Complete shared/location.md
+Tasks:
+- [ ] Install Logseq on Windows 11 desktop (if not already installed)
+- [ ] Open Logseq → Add Graph → point to \\silverblue-ai\zeroclaw\workspace
+- [ ] Verify Logseq can read existing files (personas/, projects/, shared/)
+- [ ] Configure graph settings (prefer markdown, disable journal if not needed)
+- [ ] Test edit cycle: edit pantry.md in Logseq → confirm git auto-commit picks it up
+- [ ] Fill in shared/dietary-profile.md with real Malcolm + Jen data
+- [ ] Fill in shared/location.md
+- [ ] Fill in shared/health-profile.md locally (gitignored — never committed)
+- [ ] Fill in shared/music-profile.md
+- [ ] Fill in shared/travel-profile.md
 
-#### Frank core
-- [ ] Resolve SQLite vs markdown pantry question
-- [ ] Test Frank reading pantry data
+### Phase 9: Frank Full Implementation
+
+#### Core
+- [ ] Test Frank reading pantry.md (populated via Logseq)
+- [ ] Test Frank reading dietary-profile.md
 - [ ] Test full meal plan generation end-to-end
 - [ ] Verify meal_plan.md and shopping_list.md saved to meal-planner/
 
+#### Recipe Research (new feature)
+- [ ] Add recipe research workflow to FRANK.md
+- [ ] Frank fetches recipes from diabetes.org.uk/living-with-diabetes/eating/recipes and bbc.co.uk/food
+- [ ] Frank cross-references with dietary-profile.md preferences
+- [ ] Frank filters out disliked ingredients (Malcolm: raw tomatoes, Jen: uncooked cheese)
+- [ ] Frank saves curated shortlist to projects/meal-planner/new-recipes.md
+- [ ] Decide: on-demand only, or included in Sunday routine?
+
 #### Automation
+- [ ] Investigate ZeroClaw cron payload format
 - [ ] Set up Sunday 3:30pm cron job
 - [ ] Test scheduled execution end-to-end
 
 ---
 
 ## Not Yet Started
-- Phase 9: Logseq setup
 - Phase 10: AnythingLLM connection
 - Phases 11–14: Len, Ziggy, Penny, Joy full activation
 
@@ -79,29 +92,28 @@ None.
 ## Recent Changes
 
 ### 2026-02-24
-- **Phase 7 complete** — all persona files updated with MANDATORY FIRST STEP protocol
-- PENNY, LEN, ZIGGY, JOY operational instructions added by Bob via Telegram
-- FRANK.md updated with mandatory file reads
-- BOB.md mandatory read confirmed working ("Hey Bob" now reads STATE.md automatically)
-- Confirmed pattern: explicit file_read syntax + MANDATORY heading required for reliable activation
-- **Phase 5 complete** — persona switching
-- **Phase 6 complete** — Bob operational and self-managing
-- file_read paths must be relative to workspace root (critical learning)
+- **Phases 5, 6, 7 complete** — persona switching, Bob operational, all personas updated
+- Promoted Logseq to Phase 8 (before Frank) — needed for editing shared profiles
+- Added Frank recipe research feature to Phase 9 plan
+- Switched pantry from SQLite (food.db) to markdown (pantry.md)
+- Deleted food.db, schema.sql, seed_data.sql
+- Frank's MANDATORY FIRST STEP updated to reference pantry.md
+- All decisions recorded in root DECISIONS.md
 
 ---
 
-## Next Claude Session Tasks
+## Next Session Tasks
 
-1. Investigate SQLite question: can ZeroClaw's file_read handle food.db, or markdown needed?
-2. Fill in shared/dietary-profile.md with real Malcolm + Jen data
-3. Test Frank generating a full meal plan end-to-end
-4. Set up Sunday 3:30pm cron job
+1. Install Logseq on Windows, point graph at Samba share
+2. Verify read/write cycle works (Logseq → git auto-commit)
+3. Fill in shared profiles via Logseq
+4. Then move to Frank implementation with populated profiles
 
 ## Key Learnings
 
 - file_read paths are relative to workspace root — never absolute
-- SOUL.md bootstrap files load from workspace root
+- SOUL.md loads from workspace root
 - [[tools]] not needed in SKILL.toml for ZeroClaw built-ins
-- Skills skipped entirely (WARN) if SKILL.toml has any validation error
 - Explicit file_read syntax + MANDATORY heading required for reliable on-activation reads
-- Bob can self-correct his own persona file — useful for future maintenance
+- Bob can self-correct his own persona file
+- Logseq via Samba is the right way to edit workspace markdown — not terminal
