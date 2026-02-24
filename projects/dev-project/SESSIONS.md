@@ -4,19 +4,41 @@ Log of Claude sessions working on the platform. Most recent session first.
 
 ---
 
-## Session 5 — 2026-02-24 (Bob via Telegram)
+## Session 5 — 2026-02-24
 
-**Focus:** Bob operational test
+**Focus:** Bob confirmed operational, dual-mode workflow live
 
 ### Completed
-- Created dev-project/docs/ and dev-project/scripts/ directories
-- Bob successfully read STATE.md via Telegram
-- Bob successfully wrote test entry to SESSIONS.md
-- File I/O confirmed working ✅
+- Diagnosed file_read path issue: ZeroClaw resolves paths relative to workspace root, not absolute
+- Fixed all persona files and SKILL.md with sed to strip absolute path prefix
+- Confirmed fix: Bob successfully read projects/dev-project/STATE.md via Telegram
+- Bob created dev-project/docs/ and dev-project/scripts/ directories
+- Bob wrote test entry to SESSIONS.md
+- Bob self-corrected BOB.md to use explicit file_read paths
+- Dual-mode workflow confirmed live: Bob (Telegram) + Claude (claude.ai)
+- Handed Phase 7 (remaining persona operational instructions) to Bob
 
-### Next
-- Continue day-to-day task handoff to Bob
-- Bob now owns session logging for quick updates
+### Key Decisions
+- file_read paths must be relative to workspace root — never absolute
+- Bob handles day-to-day: file edits, directory creation, status updates
+- Claude handles: planning, architecture, generating larger content
+- Phase 7 delegated to Bob entirely — no Claude session needed
+
+### Key Learnings
+- file_read resolves via workspace_dir.join(filename) — confirmed from ZeroClaw source
+- Explicit path instruction in BOB.md needed: "Use file_read with path X" not just "read X"
+- Bob can self-correct his own persona file — useful pattern for future maintenance
+
+### Files Modified
+- workspace/personas/BOB.md (explicit file_read paths)
+- workspace/personas/FRANK.md (absolute paths stripped)
+- workspace/skills/personas/SKILL.md (absolute paths stripped)
+- dev-project/STATE.md, TODO.md, SESSIONS.md (updated)
+
+### Next Claude Session
+- Review Phase 7 completion (Bob should have updated PENNY, LEN, ZIGGY, JOY)
+- Plan Frank full implementation — SQLite vs markdown pantry question
+- Begin Phase 8: Frank meal plan generation end-to-end
 
 ---
 
@@ -26,27 +48,8 @@ Log of Claude sessions working on the platform. Most recent session first.
 
 ### Completed
 - Added operational instructions block to BOB.md
-- Bob now reads STATE.md, TODO.md, and user-profile.md on activation
-- Bob updates STATE.md and SESSIONS.md on session end
 - Switched priority: Bob operational before Frank full implementation
-- Established dual-mode workflow: Bob (Telegram/ZeroClaw) + Claude (claude.ai)
-- Updated STATE.md, TODO.md, SESSIONS.md to reflect new priority order
-
-### Key Decisions
-- Run Bob and Claude in parallel — complementary, not competing
-- Bob via Telegram: day-to-day tasks, quick edits, file updates, running commands
-- Claude via claude.ai: complex planning, architecture, generating larger files
-- Project self-managed from workspace once Bob is confirmed working
-
-### Files Modified
-- workspace/personas/BOB.md (operational instructions appended)
-- dev-project/STATE.md, TODO.md, SESSIONS.md (updated)
-
-### Next Session
-- Create dev-project/docs/ and scripts/ subdirectories on Silverblue
-- Test Bob via Telegram: "Hey Bob, read STATE.md and tell me what's next"
-- Verify Bob can write back to SESSIONS.md
-- If working: hand off day-to-day tracking to Bob
+- Established dual-mode workflow concept
 
 ---
 
@@ -55,60 +58,26 @@ Log of Claude sessions working on the platform. Most recent session first.
 **Focus:** Phase 5 — Persona switching implementation
 
 ### Completed
-- Researched ZeroClaw Skills and openclaw identity system from source code
-- SOUL.md bootstrap file list discovered: loads from workspace root
-- Skills load from workspace/skills/[name]/SKILL.toml
+- Researched ZeroClaw Skills and openclaw identity system from source
 - Built hybrid architecture: neutral SOUL.md + single personas skill
-- Fixed SKILL.toml bug: [[tools]] not needed for built-in tools
-- Added operational instructions to FRANK.md
-- Tested: Frank ✅, Ziggy ✅, neutral mode ✅
-- Created dev-project/ folder structure and research/phase5-persona-switching.md
-
-### Key Decisions
-- Hybrid: neutral SOUL.md + single personas skill
-- Trigger pattern: "Hey [Name]" / "@[name]" / "[Name]:"
-- [[tools]] section not needed in SKILL.toml for ZeroClaw built-ins
-- Skills skipped entirely (with WARN) if SKILL.toml has any validation error
-
-### Files Created / Modified
-- workspace/SOUL.md (new)
-- workspace/skills/personas/SKILL.toml (new)
-- workspace/skills/personas/SKILL.md (new)
-- workspace/personas/FRANK.md (renamed + operational instructions added)
-- dev-project/STATE.md, TODO.md, SESSIONS.md (new)
-- dev-project/research/phase5-persona-switching.md (new)
+- Fixed SKILL.toml [[tools]] bug
+- Confirmed Frank ✅, Ziggy ✅, neutral mode ✅
+- Created dev-project/ folder structure
 
 ---
 
 ## Session 2 — 2026-02-24
 
-**Focus:** dev-project/ folder structure
-
-### Completed
-- Created STATE.md, TODO.md, SESSIONS.md based on DEV-PROJECT-PLAN.md content
+**Focus:** dev-project/ folder structure created
 
 ---
 
 ## Session 1 — 2026-02-24
 
-**Focus:** Persona definitions and platform architecture
-
-### Completed
-- Created all six persona definitions: FRANK, PENNY, BOB, LEN, ZIGGY, JOY
-- Created shared profile templates
-- Added Joy as sixth persona
-- Decided to use dev-project/ as meta-project
+**Focus:** All six persona definitions and shared profile templates created
 
 ---
 
 ## Session 0 — 2026-02-23
 
-**Focus:** Infrastructure setup, ZeroClaw upgrade, workspace restructure
-
-### Completed
-- Upgraded ZeroClaw v0.1.1 → v0.1.6 (from git tag)
-- Fixed config.toml allowed_domains
-- Full workspace restructure
-- Migrated meal planner files
-- Set up git auto-commit and auto-push timers
-- SSH key auth for GitHub
+**Focus:** Infrastructure — ZeroClaw upgrade, workspace restructure, git automation

@@ -12,49 +12,42 @@ Check off items as completed. Update STATE.md after each session.
 - [x] Created workspace/skills/personas/SKILL.toml and SKILL.md
 - [x] Frank activates and responds in character ✅
 - [x] Ziggy activates and uses web_search ✅
-- [x] Neutral mode ("Back to normal") works ✅
+- [x] Neutral mode works ✅
 - [x] Decisions recorded
 
 ---
 
-## Phase 6 (reordered): Bob Operational ⬅️ YOU ARE HERE
+## Phase 6: Bob Operational ✅ COMPLETE
 
-### Setup
 - [x] Add operational instructions to BOB.md
-- [ ] Create dev-project/docs/ subdirectory on Silverblue
-- [ ] Create dev-project/scripts/ subdirectory on Silverblue
-
-### Testing
-- [ ] Test Bob via Telegram: "Hey Bob" → verify he reads STATE.md and TODO.md
-- [ ] Ask Bob to summarise current project status (confirm he reads files correctly)
-- [ ] Ask Bob to append a test entry to SESSIONS.md (confirm he can write files)
-- [ ] Confirm file is committed by git auto-commit timer
-
-### Workflow established
-- [ ] Dual-mode workflow confirmed working: Bob (Telegram) + Claude (claude.ai)
-- [ ] Hand off day-to-day STATE.md / SESSIONS.md updates to Bob
+- [x] Fix file_read paths — relative to workspace root, not absolute
+- [x] Create dev-project/docs/ and dev-project/scripts/ directories
+- [x] Test Bob reads STATE.md and TODO.md on activation ✅
+- [x] Test Bob writes to SESSIONS.md ✅
+- [x] Bob self-corrects BOB.md path instructions ✅
+- [x] Dual-mode workflow confirmed live ✅
 
 ---
 
-## Phase 7: Remaining Persona Operational Instructions
+## Phase 7: Remaining Persona Operational Instructions ⬅️ BOB HANDLING VIA TELEGRAM
 
-- [ ] Add operational instructions block to PENNY.md
-- [ ] Add operational instructions block to LEN.md
-- [ ] Add operational instructions block to ZIGGY.md
-- [ ] Add operational instructions block to JOY.md
+- [ ] Add operational instructions to PENNY.md
+- [ ] Add operational instructions to LEN.md
+- [ ] Add operational instructions to ZIGGY.md
+- [ ] Add operational instructions to JOY.md
 
 ---
 
-## Phase 8: Frank (Meal Planner) Full Implementation
+## Phase 8: Frank (Meal Planner) Full Implementation ⬅️ NEXT CLAUDE SESSION
 
 ### Shared profiles
 - [ ] Complete shared/dietary-profile.md with real Malcolm + Jen data
-- [ ] Complete shared/location.md (South Shields, NE England)
+- [ ] Complete shared/location.md
 
 ### Frank core
-- [ ] Verify food.db in projects/meal-planner/ and test Frank can read it
 - [ ] Determine if ZeroClaw reads SQLite directly or needs markdown export
-- [ ] Test full meal plan generation — ask Frank to plan the week
+- [ ] If markdown needed: create pantry.md and update Frank's instructions
+- [ ] Test full meal plan generation
 - [ ] Verify meal_plan.md and shopping_list.md saved correctly
 
 ### Automation
@@ -74,8 +67,8 @@ Check off items as completed. Update STATE.md after each session.
 
 ## Phase 10: AnythingLLM Integration
 
-- [ ] Confirm AnythingLLM installed on Windows 11
-- [ ] Connect workspace via Samba, configure to index content-library/
+- [ ] Connect workspace via Samba
+- [ ] Configure to index content-library/
 - [ ] Test indexing and query functionality
 
 ---
@@ -94,7 +87,7 @@ Check off items as completed. Update STATE.md after each session.
 - [ ] Operational instructions added (Phase 7)
 - [ ] Complete shared/music-profile.md with real data
 - [ ] Test gig search and recommendation workflow
-- [ ] Create watchlist.md, set up optional weekly roundup
+- [ ] Create watchlist.md
 
 ---
 
@@ -111,7 +104,6 @@ Check off items as completed. Update STATE.md after each session.
 - [ ] Operational instructions added (Phase 7)
 - [ ] Complete shared/travel-profile.md with real data
 - [ ] Test destination research, itinerary, and budget workflows
-- [ ] Explore Joy + Ziggy coordination
 
 ---
 

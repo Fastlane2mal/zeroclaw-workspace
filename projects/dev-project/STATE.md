@@ -1,8 +1,8 @@
 # Silverblue AI Workspace — Development State
 
 **Last updated:** 2026-02-24  
-**Current phase:** Phase 6 (reordered) — Bob operational, project self-managed from workspace  
-**Status:** In progress
+**Current phase:** Phase 7 — Remaining persona operational instructions  
+**Status:** Bob handling via Telegram
 
 ---
 
@@ -21,55 +21,43 @@
 ### Workspace Structure ✅
 - Clean folder layout: personas/, projects/, shared/, skills/
 - All six personas defined (FRANK, PENNY, BOB, LEN, ZIGGY, JOY)
-- Shared profile templates created (user, dietary, music, location, travel)
+- Shared profile templates created
 - Project folders initialised for all personas
 - health-profile.md gitignored (local only)
 
 ### Configuration ✅
 - config.toml: max_tokens=4096
 - http_request allowed_domains = ["*"]
-- SSH key auth for GitHub
 - systemd timers for auto-commit/push
 
 ### Phase 5: Persona Switching ✅
 - SOUL.md at workspace root — neutral coordinator base identity
 - workspace/skills/personas/ — single skill handling all six personas
-- Trigger phrases working: "Hey Frank", "@ziggy", "Back to normal", etc.
-- Frank activates, reads persona file, responds in character ✅
-- Ziggy activates, auto-triggers web_search, responds in character ✅
-- "Back to normal" returns to neutral coordinator ✅
+- Frank, Ziggy, neutral mode all confirmed working ✅
 
-### Bob (Dev Assistant) ✅
-- BOB.md operational instructions added (reads STATE.md, TODO.md on activation)
-- Bob can now manage this project from within the workspace via Telegram
+### Phase 6: Bob Operational ✅
+- BOB.md operational instructions in place (explicit file_read paths)
+- Bob reads projects/dev-project/STATE.md and TODO.md on activation
+- Bob confirmed reading files, creating directories, writing to SESSIONS.md ✅
+- Bob self-corrected his own persona file (BOB.md path fix) ✅
+- dev-project/docs/ and dev-project/scripts/ directories created ✅
+- Dual-mode workflow live: Bob (Telegram) + Claude (claude.ai) ✅
 
 ---
 
 ## What's In Progress
 
-### Current Focus — Bob operational + project self-managed ⬅️
-
-- [ ] Create dev-project/docs/ and dev-project/scripts/ subdirectories on Silverblue
-- [ ] Test Bob via Telegram: "Hey Bob" → verify he reads STATE.md and TODO.md
-- [ ] Confirm Bob can update STATE.md and SESSIONS.md directly
-- [ ] Establish dual-mode workflow: Bob via Telegram for day-to-day, Claude for complex sessions
-
-### Deferred — Remaining persona operational instructions
-- [ ] Add operational instructions block to PENNY.md
-- [ ] Add operational instructions block to LEN.md
-- [ ] Add operational instructions block to ZIGGY.md
-- [ ] Add operational instructions block to JOY.md
-
-### Deferred — Frank core implementation (original Phase 6)
-- [ ] Complete shared/dietary-profile.md with real Malcolm + Jen data
-- [ ] Verify food.db accessible and readable by ZeroClaw
-- [ ] Test full meal plan generation end-to-end
-- [ ] Set up Sunday 3:30pm cron trigger
+### Phase 7: Remaining persona operational instructions ⬅️ BOB HANDLING
+- [ ] Add operational instructions to PENNY.md
+- [ ] Add operational instructions to LEN.md
+- [ ] Add operational instructions to ZIGGY.md
+- [ ] Add operational instructions to JOY.md
 
 ### Not Yet Started
-- Phase 7: Logseq setup
-- Phase 8: AnythingLLM connection
-- Phases 9–12: Len, Penny, Ziggy, Joy full activation
+- Phase 8: Frank full implementation (pantry, meal plans, cron)
+- Phase 9: Logseq setup
+- Phase 10: AnythingLLM connection
+- Phases 11–14: Len, Ziggy, Penny, Joy full activation
 
 ---
 
@@ -81,27 +69,25 @@ None.
 
 ## Dual-Mode Workflow
 
-This project is now managed from two places:
-
 | Tool | Best for |
 |------|----------|
-| Bob via Telegram (ZeroClaw) | Day-to-day tasks, quick file edits, running commands, updating STATE.md/SESSIONS.md |
-| Claude (claude.ai) | Complex planning, architecture decisions, generating larger files, multi-step reasoning |
+| Bob via Telegram | Day-to-day tasks, file edits, directory creation, status updates, quick commands |
+| Claude via claude.ai | Complex planning, architecture decisions, generating larger files, multi-step reasoning |
 
 Bob reads STATE.md and TODO.md on every activation — always knows where things stand.
-Claude sessions should start by pasting SESSION_OPENER.md for full context.
+Claude sessions should start with SESSION_OPENER.md for full context.
 
 ---
 
 ## Recent Changes
 
 ### 2026-02-24
-- **Phase 5 complete** — persona switching fully implemented and tested
-- Created workspace/SOUL.md
-- Created workspace/skills/personas/SKILL.toml and SKILL.md
-- Added operational instructions to FRANK.md and BOB.md
-- Switched priority: Bob operational before Frank implementation
-- Decided to run Bob (Telegram) and Claude in parallel — complementary, not competing
+- **Phase 6 complete** — Bob fully operational and self-managing
+- Bob read STATE.md, created directories, wrote SESSIONS.md entry ✅
+- Bob self-corrected BOB.md to use explicit file_read paths ✅
+- Dual-mode workflow confirmed live
+- Handed Phase 7 (remaining persona instructions) to Bob via Telegram
+- file_read paths must be relative to workspace root (not absolute) — confirmed from ZeroClaw source
 
 ### 2026-02-23
 - Upgraded ZeroClaw v0.1.1 → v0.1.6
@@ -111,10 +97,15 @@ Claude sessions should start by pasting SESSION_OPENER.md for full context.
 
 ---
 
-## Next Session Tasks
+## Next Claude Session Tasks
 
-1. Create dev-project/docs/ and dev-project/scripts/ on Silverblue
-2. Test Bob via Telegram — "Hey Bob, read STATE.md and tell me what's next"
-3. Verify Bob can write back to STATE.md and SESSIONS.md
-4. If working: hand off day-to-day tracking to Bob
-5. Return here (Claude) for Frank implementation planning
+1. Review Phase 7 completion (Bob should have updated PENNY, LEN, ZIGGY, JOY)
+2. Plan Frank full implementation — pantry SQLite question, cron format
+3. Begin Phase 8: Frank meal plan generation end-to-end
+
+## Key Learnings This Session
+
+- file_read paths are relative to workspace root — never use absolute paths in persona files or SKILL.md
+- SOUL.md bootstrap files load from workspace root (not personas/)
+- [[tools]] declaration not needed in SKILL.toml for ZeroClaw built-in tools
+- Skills skipped entirely (WARN) if SKILL.toml has any validation error — always check for WARN on first run
