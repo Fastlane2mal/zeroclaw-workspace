@@ -1,8 +1,77 @@
-# Travel Profile — Malcolm & Jen
-
-*This file helps Joy understand your travel preferences and style.*
-
----
+# Travel Profile
+- ## Travel Style
+- **Budget:** [Budget / Mid-range / Luxury / Mix depending on destination]
+- **Pace:** [Relaxed /  Flexible / Spontaneous]
+- **Accommodation:** [Airbnb / Hotels / Mix]
+- **Planning style:** [Rough plan]
+- ## Travel Interests
+- ### Activities
+  [What do you enjoy doing on trips? Check all that apply:]
+- Cultural experiences (museums, historical sites, local traditions)
+- Food and drink (restaurants, markets, wine tours)
+- Nature and outdoors (hiking, beaches, national parks)
+- Relaxation (spas, beaches, quiet retreats)
+- Nightlife and entertainment
+- Shopping
+- Live Music
+- ### Must-Haves
+  [What makes or breaks a trip for you?]
+- Good food scene
+- Prefer accessible public transport
+- ## Budget Ranges (per person)
+- ### Weekend Break (2-3 nights)
+- **Budget:** £[X]–£[Y]
+- [Includes: flights/transport, accommodation, meals, activities]
+- ### Week-Long Trip (7 nights)
+- **Budget:** £[X]–£[Y]
+- [Includes: flights/transport, accommodation, meals, activities]
+- ### Two-Week Holiday (14 nights)
+- **Budget:** £[X]–£[Y]
+- [Includes: flights/transport, accommodation, meals, activities]
+- ## Constraints
+- ### Work Schedule
+- Can travel year-round
+- Preferred travel months: Week at Christmas, Week in January, Week in A
+- ### Health Considerations
+- [Any travel restrictions due to health conditions?]
+- [Mobility considerations?]
+- [Need for specific medical facilities?]
+- ### Accessibility Needs
+- [Can you walk long distances?]
+- [Need step-free access?]
+- [Other accessibility requirements?]
+- ## Preferred Destinations
+- ### Types of Destinations
+  [What kinds of places appeal to you?]
+- Cities (historic, modern, cultural capitals)
+- Beach/coastal
+- Mountains/rural
+- Islands
+- Desert/exotic landscapes
+- ### Regions of Interest
+  [Which parts of the world interest you most?]
+- Europe (Western, Eastern, Mediterranean, Scandinavia)
+- Asia (Southeast, East, Central)
+- Americas (North, Central, South)
+- Africa
+- Middle East
+- Oceania
+- ## Past Trips & Learnings
+  
+  [Optional but useful: What worked? What didn't? Helps Joy learn your preferences]
+  
+  Format:
+- **Destination** — Year — What worked / What to avoid next time
+  
+  Examples:
+- Italy (Rome, Florence) — 2018 — Loved: food tours, small trattorias. Avoid: visiting in August (too hot/crowded)
+- Scotland Highlands — 2020 — Loved: scenic drives, remote cottages. Needed: better planning for weather/midges
+- ## Bucket List
+  
+  [Dream destinations — helps Joy watch for deals and opportunities]
+- [Destination 1]
+- [Destination 2]
+- [Destination 3]
 - ## Travel Style
   
   **Pace:** Moderate  

@@ -4,13 +4,14 @@
 - **Writing:** Songwriting interests: folk, acoustic, Celtic, rock
 - **Listening:** Americana, folk, acoustic, Celtic, rock
 - ## Favourite Artists
-  [List your favourite artists — this helps Ziggy find similar acts and recommend gigs]
-  
-  Examples:
-- [Artist 1]
-- [Artist 2]
-- [Artist 3]
-- etc.
+- https://www.last.fm/user/fastlane2
+- | Artist | Notes |
+  |--------|-------|
+  | The Waterboys | |
+  | James | |
+  | Lindisfarne | North East legends — particular significance given location |
+  | Rory Gallagher | |
+  | The Temperance Movement | |
 - ## Favourite Genres
   [List genres you enjoy — helps both Penny and Ziggy]
   
@@ -41,19 +42,19 @@
 - Various Harmonics in various keys
 -
 - ## Songwriting Goals
-	- Learn song structure
+	- Learn and practice song writing skills
 	- Improve lyrics
 	- Better chord progressions
 	- Recording/production skills
-	- etc.
 - ## Genres
+- Americana
+- Celtic folk
 - Folk / Acoustic
 - Rock / Indie
-  
-  ---
+- Blues---
 - ## Favourite Artists
-  
-  | Artist | Notes |
+- https://www.last.fm/user/fastlane2
+- | Artist | Notes |
   |--------|-------|
   | The Waterboys | |
   | James | |
@@ -72,6 +73,7 @@
 - Lindisfarne have a strong North East connection — local tribute acts or 
   anniversary events may also be of interest
 - Check https://www.last.fm/user/fastlane2 and https://www.setlist.fm/user/fastlane2 for more Favourite Artists
+	- https://www.last.fm/user/fastlane2
 - ## Notes for Penny
 - Malcolm's taste runs toward folk, acoustic, Celtic influence and classic rock/indie
 - Song writing lessons should be grounded in these genres where possible
