@@ -20,26 +20,24 @@
 - Prefer accessible public transport
 - ## Budget Ranges (per person)
 - ### Weekend Break (2-3 nights)
-- **Budget:** £[X]–£[Y]
+- **Budget:** £150–£400
 - [Includes: flights/transport, accommodation, meals, activities]
 - ### Week-Long Trip (7 nights)
-- **Budget:** £[X]–£[Y]
+- **Budget:** £350–£1000
 - [Includes: flights/transport, accommodation, meals, activities]
 - ### Two-Week Holiday (14 nights)
-- **Budget:** £[X]–£[Y]
+- **Budget:** £800–£2000
+- [Includes: flights/transport, accommodation, meals, activities]
+- ### Four-Week+ Holiday (28+ nights)
+- **Budget:** £2000–£2000
 - [Includes: flights/transport, accommodation, meals, activities]
 - ## Constraints
 - ### Work Schedule
 - Can travel year-round
-- Preferred travel months: Week at Christmas, Week in January, Week in A
+- Preferred travel months: Week at Christmas, Week in January, Week in April, at least 4 weeks in October - November
 - ### Health Considerations
-- [Any travel restrictions due to health conditions?]
-- [Mobility considerations?]
-- [Need for specific medical facilities?]
 - ### Accessibility Needs
-- [Can you walk long distances?]
-- [Need step-free access?]
-- [Other accessibility requirements?]
+- Can walk on flat ground slowly for an hour
 - ## Preferred Destinations
 - ### Types of Destinations
   [What kinds of places appeal to you?]
@@ -47,14 +45,11 @@
 - Beach/coastal
 - Mountains/rural
 - Islands
-- Desert/exotic landscapes
 - ### Regions of Interest
   [Which parts of the world interest you most?]
 - Europe (Western, Eastern, Mediterranean, Scandinavia)
 - Asia (Southeast, East, Central)
 - Americas (North, Central, South)
-- Africa
-- Middle East
 - Oceania
 - ## Past Trips & Learnings
   
@@ -67,59 +62,15 @@
 - Italy (Rome, Florence) — 2018 — Loved: food tours, small trattorias. Avoid: visiting in August (too hot/crowded)
 - Scotland Highlands — 2020 — Loved: scenic drives, remote cottages. Needed: better planning for weather/midges
 - ## Bucket List
-  
-  [Dream destinations — helps Joy watch for deals and opportunities]
-- [Destination 1]
-- [Destination 2]
-- [Destination 3]
-- ## Travel Style
-  
-  **Pace:** Moderate  
-  *Options: Relaxed (1-2 things per day) / Moderate (morning + afternoon activities) / Packed (maximize every day)*
-  
-  **Accommodation preference:** Airbnb first Hotels second
-  *Options: Hotels / Airbnb / Mix / Boutique / Budget hostels / Luxury*
-  
-  **Planning style:** Loose framework with room for spontaneity  
-  *Options: Detailed itinerary (every hour planned) / Loose framework (key things booked, rest flexible) / Spontaneous (figure it out when there)*
-  
-  **Activity level:** Low to Moderate  
-  *Options: Low (relaxation focused) / Moderate (some walking, mix of activities) / High (active adventures, lots of walking)*
-  
-  ---
-- ## Interests & Preferences
-  
-  **Primary interests:** (rank or tick most important)
-- [ ] History & culture
-- [ x] Food & restaurants (trying local cuisine)
-- [x ] Nature & outdoors
-- [ ] Museums & galleries
-- [x ] Nightlife & entertainment
-- [ ] Beach & relaxation
-- [ ] Adventure activities
-- [x ] Local experiences (markets, festivals, everyday life)
-- [ ] Photography & scenery
-- [x ] Shopping
-- [ ] Architecture
-  
-  **Climate preference:**
-- Preferred: Warm to hot
-- Acceptable: Mild
-- Avoid: Very cold (unless winter sports)
-  
-  **Travel priorities:** (what matters most when choosing where to go)
-  1. Good food is essential
-  2. Authentic experiences over tourist traps
-  3. Comfortable accommodation (not luxury, but decent)
-  4. Mix of activities — some culture, some relaxation5. Value for money
-- 6. Private outside space
-- **What we avoid:**
-- Overly touristy places (cruise ship crowds)
-- Very long-haul flights (prefer under 6 hours)
-- Extreme weather (very hot or very cold)
-- Places requiring extensive pre-planning/advance booking
-  
-  ---
+- Türkiye
+- New Zealand
+-
+-
+-
+-
+-
+-
+-
 - ## Practical Constraints
 - ### Budget Ranges (per person)
   
