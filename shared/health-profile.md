@@ -11,7 +11,7 @@
   Prostrate Cancer - Finished Treatment
   Obese
 - ### Medications Affecting Diet
-- [e.g., "Metformin — take with food, avoid alcohol"]
+- Metformin — take with food, avoid alcohol
 - ### Dietary Goals
 - Stabilise blood sugar levels
 - Weight Loss
