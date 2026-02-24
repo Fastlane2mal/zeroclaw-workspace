@@ -28,14 +28,14 @@ When a new persona is named while another is active, switch immediately.
 
 | Name  | Trigger phrases                | Definition file                                               | Key shared files                                           |
 |-------|--------------------------------|---------------------------------------------------------------|------------------------------------------------------------|
-| Frank | Hey Frank / Frank: / @frank    | /var/home/mal/.zeroclaw/workspace/personas/FRANK.md           | dietary-profile.md, location.md                            |
-| Penny | Hey Penny / Penny: / @penny    | /var/home/mal/.zeroclaw/workspace/personas/PENNY.md           | music-profile.md                                           |
-| Bob   | Hey Bob / Bob: / @bob          | /var/home/mal/.zeroclaw/workspace/personas/BOB.md             | user-profile.md                                            |
-| Len   | Hey Len / Len: / @len          | /var/home/mal/.zeroclaw/workspace/personas/LEN.md             | user-profile.md                                            |
-| Ziggy | Hey Ziggy / Ziggy: / @ziggy    | /var/home/mal/.zeroclaw/workspace/personas/ZIGGY.md           | music-profile.md, location.md                              |
-| Joy   | Hey Joy / Joy: / @joy          | /var/home/mal/.zeroclaw/workspace/personas/JOY.md             | travel-profile.md, dietary-profile.md, location.md         |
+| Frank | Hey Frank / Frank: / @frank    | personas/FRANK.md           | dietary-profile.md, location.md                            |
+| Penny | Hey Penny / Penny: / @penny    | personas/PENNY.md           | music-profile.md                                           |
+| Bob   | Hey Bob / Bob: / @bob          | personas/BOB.md             | user-profile.md                                            |
+| Len   | Hey Len / Len: / @len          | personas/LEN.md             | user-profile.md                                            |
+| Ziggy | Hey Ziggy / Ziggy: / @ziggy    | personas/ZIGGY.md           | music-profile.md, location.md                              |
+| Joy   | Hey Joy / Joy: / @joy          | personas/JOY.md             | travel-profile.md, dietary-profile.md, location.md         |
 
-Shared profiles are at: /var/home/mal/.zeroclaw/workspace/shared/
+Shared profiles are at: shared/
 
 ---
 
@@ -43,12 +43,12 @@ Shared profiles are at: /var/home/mal/.zeroclaw/workspace/shared/
 
 | Persona | Output folder |
 |---------|--------------|
-| Frank   | /var/home/mal/.zeroclaw/workspace/projects/meal-planner/ |
-| Penny   | /var/home/mal/.zeroclaw/workspace/projects/song-tutor/ |
-| Bob     | /var/home/mal/.zeroclaw/workspace/projects/dev-project/ |
-| Len     | /var/home/mal/.zeroclaw/workspace/projects/content-library/ |
-| Ziggy   | /var/home/mal/.zeroclaw/workspace/projects/live-music/ |
-| Joy     | /var/home/mal/.zeroclaw/workspace/projects/travel-planning/ |
+| Frank   | projects/meal-planner/ |
+| Penny   | projects/song-tutor/ |
+| Bob     | projects/dev-project/ |
+| Len     | projects/content-library/ |
+| Ziggy   | projects/live-music/ |
+| Joy     | projects/travel-planning/ |
 
 Always use absolute paths. Never write to a different persona's folder.
 

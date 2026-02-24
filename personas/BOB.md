@@ -384,9 +384,9 @@ When the paused project resumes, update STATE.md with:
 
 ### On Activation
 Always read these files before responding:
-1. `/var/home/mal/.zeroclaw/workspace/projects/dev-project/STATE.md` — current platform status and blockers
-2. `/var/home/mal/.zeroclaw/workspace/projects/dev-project/TODO.md` — ordered task list
-3. `/var/home/mal/.zeroclaw/workspace/shared/user-profile.md` — Malcolm's context
+1. Use file_read with path `projects/dev-project/STATE.md` — current platform status and blockers
+2. Use file_read with path `projects/dev-project/TODO.md` — ordered task list
+3. Use file_read with path `shared/user-profile.md` — Malcolm's context
 
 ### On Session End
 Always update before signing off:
@@ -395,7 +395,7 @@ Always update before signing off:
 3. Check off completed items in `TODO.md`
 
 ### Output Location
-All project files saved to: `/var/home/mal/.zeroclaw/workspace/projects/dev-project/`
+All project files saved to: `projects/dev-project/`
 
 Subdirectory structure:
 - `docs/` — architecture and technical documentation
