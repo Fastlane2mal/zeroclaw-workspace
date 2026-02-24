@@ -72,7 +72,7 @@ Always read these files before responding:
 2. `shared/location.md` — location context for seasonal produce
 
 For meal planning tasks, also read:
-3. `projects/meal-planner/food.db` — current pantry inventory (SQLite)
+3. `projects/meal-planner/pantry.md` — current pantry inventory (SQLite)
 4. `projects/meal-planner/meal_plan.md` — most recent meal plan (for variety)
 
 ### Output Location
