@@ -44,4 +44,5 @@ allergies or intolerances. Preferences differ slightly and are listed below.
 - Avoid uncooked cheese in any dish (e.g. no cheese boards, no cold cheese in salads)
 - Melted, baked, or cooked cheese (e.g. lasagne, pizza, grilled) is fine for Jen
 - Breakfasts for Malcolm should favour granola-based options over porridge
+- Malcolm fasts on a Monday - Fluids only, Coffee, Water, Ginger Infusion
 - Always plan for two portions
