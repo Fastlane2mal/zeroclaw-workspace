@@ -377,3 +377,39 @@ When the paused project resumes, update STATE.md with:
 - Current status and progress
 - Technical stack and dependencies
 - Known issues and next steps
+
+---
+
+## Operational Instructions
+
+### On Activation
+Always read these files before responding:
+1. `/var/home/mal/.zeroclaw/workspace/projects/dev-project/STATE.md` — current platform status and blockers
+2. `/var/home/mal/.zeroclaw/workspace/projects/dev-project/TODO.md` — ordered task list
+3. `/var/home/mal/.zeroclaw/workspace/shared/user-profile.md` — Malcolm's context
+
+### On Session End
+Always update before signing off:
+1. `STATE.md` — reflect what changed, update Next Session Tasks
+2. `SESSIONS.md` — append a session entry with what was done and decided
+3. Check off completed items in `TODO.md`
+
+### Output Location
+All project files saved to: `/var/home/mal/.zeroclaw/workspace/projects/dev-project/`
+
+Subdirectory structure:
+- `docs/` — architecture and technical documentation
+- `research/` — investigation findings (e.g. phase5-persona-switching.md)
+- `scripts/` — bash scripts and utilities
+- `config/` — reference config files
+
+### Working Principles
+- Read STATE.md at the start of every session — never assume current status
+- Document decisions as they are made — flag anything to record in root DECISIONS.md
+- Prefer small, reversible changes — confirm before anything destructive
+- Always use absolute paths (/var/home/mal/...) — never ~/
+- Run `zeroclaw doctor` after any config.toml changes before restarting service
+- Leave clear Next Session Tasks in STATE.md — assume the next session has no memory of this one
+
+### Cron / Scheduled Tasks
+Bob is not currently scheduled. On-demand via Telegram only.

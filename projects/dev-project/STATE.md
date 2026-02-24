@@ -1,8 +1,8 @@
 # Silverblue AI Workspace — Development State
 
 **Last updated:** 2026-02-24  
-**Current phase:** Phase 5 — Persona switching mechanism  
-**Status:** Research phase
+**Current phase:** Phase 6 (reordered) — Bob operational, project self-managed from workspace  
+**Status:** In progress
 
 ---
 
@@ -19,7 +19,7 @@
 - SSH key auth for GitHub
 
 ### Workspace Structure ✅
-- Clean folder layout: personas/, projects/, shared/
+- Clean folder layout: personas/, projects/, shared/, skills/
 - All six personas defined (FRANK, PENNY, BOB, LEN, ZIGGY, JOY)
 - Shared profile templates created (user, dietary, music, location, travel)
 - Project folders initialised for all personas
@@ -27,87 +27,94 @@
 
 ### Configuration ✅
 - config.toml: max_tokens=4096
-- http_request allowed_domains = ["*"] (wildcard — fixed from https://bbc.co.uk)
+- http_request allowed_domains = ["*"]
 - SSH key auth for GitHub
 - systemd timers for auto-commit/push
 
+### Phase 5: Persona Switching ✅
+- SOUL.md at workspace root — neutral coordinator base identity
+- workspace/skills/personas/ — single skill handling all six personas
+- Trigger phrases working: "Hey Frank", "@ziggy", "Back to normal", etc.
+- Frank activates, reads persona file, responds in character ✅
+- Ziggy activates, auto-triggers web_search, responds in character ✅
+- "Back to normal" returns to neutral coordinator ✅
+
+### Bob (Dev Assistant) ✅
+- BOB.md operational instructions added (reads STATE.md, TODO.md on activation)
+- Bob can now manage this project from within the workspace via Telegram
+
 ---
 
-## What's Not Working / In Progress
+## What's In Progress
 
-### Phase 5: Persona Switching ⬅️ CURRENT FOCUS
-- [ ] Read ZeroClaw Skills system documentation (SKILL.toml)
-- [ ] Find example SKILL.toml files in ZeroClaw repo
-- [ ] Read AIEOS identity framework specs (SOUL.md / IDENTITY.md)
-- [ ] Examine identity.format = "openclaw" behaviour
-- [ ] Compare approaches: Skills vs SOUL.md vs hybrid
-- [ ] Write test SKILL.toml for Frank
-- [ ] Test proof-of-concept — activate Frank via Telegram
-- [ ] Document chosen approach in DECISIONS.md
+### Current Focus — Bob operational + project self-managed ⬅️
 
-### Phase 6: Frank (Meal Planner) — BLOCKED on Phase 5
-- [ ] Verify food.db accessible in projects/meal-planner/
-- [ ] Test SQLite database access from ZeroClaw
-- [ ] Create pantry reading capability
-- [ ] Test meal plan generation
+- [ ] Create dev-project/docs/ and dev-project/scripts/ subdirectories on Silverblue
+- [ ] Test Bob via Telegram: "Hey Bob" → verify he reads STATE.md and TODO.md
+- [ ] Confirm Bob can update STATE.md and SESSIONS.md directly
+- [ ] Establish dual-mode workflow: Bob via Telegram for day-to-day, Claude for complex sessions
+
+### Deferred — Remaining persona operational instructions
+- [ ] Add operational instructions block to PENNY.md
+- [ ] Add operational instructions block to LEN.md
+- [ ] Add operational instructions block to ZIGGY.md
+- [ ] Add operational instructions block to JOY.md
+
+### Deferred — Frank core implementation (original Phase 6)
+- [ ] Complete shared/dietary-profile.md with real Malcolm + Jen data
+- [ ] Verify food.db accessible and readable by ZeroClaw
+- [ ] Test full meal plan generation end-to-end
 - [ ] Set up Sunday 3:30pm cron trigger
-- [ ] Verify shopping list format and output location
 
 ### Not Yet Started
 - Phase 7: Logseq setup
 - Phase 8: AnythingLLM connection
-- Phases 9–12: Len, Penny, Ziggy, Joy activation
+- Phases 9–12: Len, Penny, Ziggy, Joy full activation
 
 ---
 
 ## Current Blockers
 
-**Phase 5 blocker:** Persona switching mechanism not yet researched or implemented.
-- Don't know if Skills (SKILL.toml), SOUL.md/IDENTITY.md, or a combination is correct
-- This blocks all persona implementations (Phases 6–12)
+None.
 
-**Action required:** Read ZeroClaw repo documentation before making any decisions.
+---
+
+## Dual-Mode Workflow
+
+This project is now managed from two places:
+
+| Tool | Best for |
+|------|----------|
+| Bob via Telegram (ZeroClaw) | Day-to-day tasks, quick file edits, running commands, updating STATE.md/SESSIONS.md |
+| Claude (claude.ai) | Complex planning, architecture decisions, generating larger files, multi-step reasoning |
+
+Bob reads STATE.md and TODO.md on every activation — always knows where things stand.
+Claude sessions should start by pasting SESSION_OPENER.md for full context.
 
 ---
 
 ## Recent Changes
 
 ### 2026-02-24
-- Created all six persona definitions (FRANK, PENNY, BOB, LEN, ZIGGY, JOY)
-- Created shared profile templates (music, travel, dietary, location, user)
-- Added Joy as sixth persona (travel planner)
-- Added projects/travel-planning/ with /trips, /ideas, /research structure
-- Decided to use dev-project/ for platform development tracking (meta-project)
-- Created dev-project/ folder structure (STATE.md, TODO.md, SESSIONS.md)
+- **Phase 5 complete** — persona switching fully implemented and tested
+- Created workspace/SOUL.md
+- Created workspace/skills/personas/SKILL.toml and SKILL.md
+- Added operational instructions to FRANK.md and BOB.md
+- Switched priority: Bob operational before Frank implementation
+- Decided to run Bob (Telegram) and Claude in parallel — complementary, not competing
 
 ### 2026-02-23
-- Upgraded ZeroClaw v0.1.1 → v0.1.6 (built from git tag, not main)
-- Fixed config.toml allowed_domains (removed https:// prefix, changed to wildcard)
-- Completed workspace restructure (clean slate)
-- Migrated food.db, schema.sql, seed_data.sql to projects/meal-planner/
-- Migrated FRANK_PERSONA.md to personas/
-- Migrated Song Tutor/role.md to projects/song-tutor/
+- Upgraded ZeroClaw v0.1.1 → v0.1.6
+- Fixed config.toml allowed_domains
+- Completed workspace restructure
+- Migrated meal planner files
 
 ---
 
 ## Next Session Tasks
 
-1. SSH into Silverblue, navigate to ~/.zeroclaw/workspace/projects/dev-project/
-2. Confirm this file structure is in place
-3. Read ZeroClaw Skills documentation (`zeroclaw skills --help` or repo docs)
-4. Find and examine example SKILL.toml files in ZeroClaw repo
-5. Read AIEOS identity format specification
-6. Compare: Skills vs SOUL.md — which fits six-persona use case better?
-7. Document findings in research/phase5-persona-switching.md
-8. Record decision in root DECISIONS.md
-
----
-
-## Open Questions
-
-- Skills vs SOUL.md vs hybrid approach for persona switching?
-- Can personas share conversation context or must each start fresh?
-- Is there a default persona, or is activation always explicit?
-- Do scheduled tasks (Frank's Sunday cron) use the persona system?
-- How do we test personas without spamming the Telegram channel?
-- Can Joy and Ziggy coordinate (trip + concert planning)?
+1. Create dev-project/docs/ and dev-project/scripts/ on Silverblue
+2. Test Bob via Telegram — "Hey Bob, read STATE.md and tell me what's next"
+3. Verify Bob can write back to STATE.md and SESSIONS.md
+4. If working: hand off day-to-day tracking to Bob
+5. Return here (Claude) for Frank implementation planning
