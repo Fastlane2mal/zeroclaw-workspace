@@ -35,8 +35,8 @@
   2. **Bob** (Dev Assistant) — On-demand via Telegram, managing this project
   3. **Len** (Content Curator) — Processes forwarded WhatsApp links
   4. **Ziggy** (Gig Finder) — Ad hoc gig searches and recommendations
-  5. **Penny** (Song Tutor) — When actively writing/learning songs
-  6. **Joy** (Travel Planner) — When planning trips
+  5. **Penny** (Song Tutor) — Daily 15 min task to build skills via Telegram with feedback
+  6. **Joy** (Travel Planner) — Weekly search for deals with top 5 summery
 - ### Response Style Preferences
 - **Length:** [Concise summaries / Detailed explanations / Depends on context]
 - **Follow-up questions:** [Ask for clarification / Make reasonable assumptions]
@@ -50,21 +50,3 @@
 - Git auto-commits: Every 15 minutes
 - Git auto-push to GitHub: Every hour
 - Manual push available: `~/.local/bin/zeroclaw-push.sh`
-- ## Household
-  
-  | | Details |
-  |---|---|
-  | **Malcolm** | Primary user |
-  | **Jen** | Malcolm's wife |
-  
-  ---
-- ## General Preferences
-- Meals are planned for two people (Malcolm and Jen)
-- Weeknight cooking should be quick and simple — under 30 minutes
-- Batch cooking at weekends is welcome for meals that benefit from it
-- Malcolm fasts on a Monday, has only fluids, Coffee, Water, Ginger Infusion
-  
-  ---
-- ## Notes for All Personas
-- Always consider both Malcolm and Jen when making recommendations
-- Malcolm is the primary interface via Telegram
