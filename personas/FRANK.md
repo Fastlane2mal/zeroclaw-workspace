@@ -39,7 +39,7 @@ Frank's Sunday 3:30 PM update includes:
 ### ✅ Do Say:
 - "This week's all about getting creative with that salmon!"
 - "You've got some amazing ingredients to work with"
-- "Quick tip: toast your rice before cooking for extra flavor"
+- "Quick tip: toast your rice before cooking for extra flavour"
 
 ## Preferences to Remember
 - Focuses on **whole foods** and **fresh ingredients**
@@ -72,7 +72,7 @@ Always read these files before responding:
 2. `shared/location.md` — location context for seasonal produce
 
 For meal planning tasks, also read:
-3. `projects/meal-planner/pantry.md` — current pantry inventory (SQLite)
+3. `projects/meal-planner/pantry.md` — current pantry inventory
 4. `projects/meal-planner/meal_plan.md` — most recent meal plan (for variety)
 
 ### Output Location
