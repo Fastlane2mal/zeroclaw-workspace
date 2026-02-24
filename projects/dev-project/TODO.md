@@ -6,54 +6,39 @@ Check off items as completed. Update STATE.md after each session.
 ---
 
 ## Phase 5: Persona Switching ✅ COMPLETE
-
-- [x] Research ZeroClaw Skills and openclaw identity system
-- [x] Created workspace/SOUL.md (neutral coordinator)
-- [x] Created workspace/skills/personas/SKILL.toml and SKILL.md
-- [x] Frank activates and responds in character ✅
-- [x] Ziggy activates and uses web_search ✅
-- [x] Neutral mode works ✅
-- [x] Decisions recorded
-
----
-
 ## Phase 6: Bob Operational ✅ COMPLETE
+## Phase 7: Remaining Persona Operational Instructions ✅ COMPLETE
 
-- [x] Add operational instructions to BOB.md
-- [x] Fix file_read paths — relative to workspace root, not absolute
-- [x] Create dev-project/docs/ and dev-project/scripts/ directories
-- [x] Test Bob reads STATE.md and TODO.md on activation ✅
-- [x] Test Bob writes to SESSIONS.md ✅
-- [x] Bob self-corrects BOB.md path instructions ✅
-- [x] Dual-mode workflow confirmed live ✅
-
----
-
-## Phase 7: Remaining Persona Operational Instructions ⬅️ BOB HANDLING VIA TELEGRAM
-
-- [ ] Add operational instructions to PENNY.md
-- [ ] Add operational instructions to LEN.md
-- [ ] Add operational instructions to ZIGGY.md
-- [ ] Add operational instructions to JOY.md
+- [x] MANDATORY FIRST STEP protocol added to BOB.md ✅
+- [x] MANDATORY FIRST STEP protocol added to FRANK.md ✅
+- [x] MANDATORY FIRST STEP protocol added to PENNY.md ✅
+- [x] MANDATORY FIRST STEP protocol added to LEN.md ✅
+- [x] MANDATORY FIRST STEP protocol added to ZIGGY.md ✅
+- [x] MANDATORY FIRST STEP protocol added to JOY.md ✅
 
 ---
 
-## Phase 8: Frank (Meal Planner) Full Implementation ⬅️ NEXT CLAUDE SESSION
+## Phase 8: Frank (Meal Planner) ⬅️ YOU ARE HERE
 
-### Shared profiles
-- [ ] Complete shared/dietary-profile.md with real Malcolm + Jen data
-- [ ] Complete shared/location.md
+### Resolve open questions first (Claude session)
+- [ ] Investigate: can ZeroClaw file_read handle SQLite (food.db) directly?
+- [ ] If not: create pantry.md markdown export, update Frank's instructions
+- [ ] Investigate: ZeroClaw cron payload format — how is message body set?
+
+### Shared profiles (fill in real data)
+- [ ] Complete shared/dietary-profile.md — Malcolm + Jen preferences and dislikes
+- [ ] Complete shared/location.md — South Shields, seasonal produce context
 
 ### Frank core
-- [ ] Determine if ZeroClaw reads SQLite directly or needs markdown export
-- [ ] If markdown needed: create pantry.md and update Frank's instructions
-- [ ] Test full meal plan generation
-- [ ] Verify meal_plan.md and shopping_list.md saved correctly
+- [ ] Test Frank reading pantry data (food.db or pantry.md)
+- [ ] Test full meal plan generation end-to-end
+- [ ] Verify meal_plan.md saved to projects/meal-planner/
+- [ ] Verify shopping_list.md saved to projects/meal-planner/
 
 ### Automation
-- [ ] Investigate ZeroClaw cron payload format
-- [ ] Create Sunday 3:30pm cron job
-- [ ] Test scheduled execution end-to-end
+- [ ] Set up Sunday 3:30pm cron job in ZeroClaw
+- [ ] Test scheduled execution
+- [ ] Verify Telegram notification on completion
 
 ---
 
@@ -75,7 +60,6 @@ Check off items as completed. Update STATE.md after each session.
 
 ## Phase 11: Len (Content Curator)
 
-- [ ] Operational instructions added (Phase 7)
 - [ ] Implement Telegram content forwarding workflow
 - [ ] Test URL fetching, categorisation, file saving
 - [ ] Verify AnythingLLM indexes new files
@@ -84,24 +68,21 @@ Check off items as completed. Update STATE.md after each session.
 
 ## Phase 12: Ziggy (Gig Finder)
 
-- [ ] Operational instructions added (Phase 7)
 - [ ] Complete shared/music-profile.md with real data
 - [ ] Test gig search and recommendation workflow
-- [ ] Create watchlist.md
+- [ ] Create projects/live-music/watchlist.md
 
 ---
 
 ## Phase 13: Penny (Song Tutor)
 
-- [ ] Operational instructions added (Phase 7)
-- [ ] Initialise progress-log.md
+- [ ] Initialise projects/song-tutor/progress-log.md
 - [ ] Test session continuity and song draft versioning
 
 ---
 
 ## Phase 14: Joy (Travel Planner)
 
-- [ ] Operational instructions added (Phase 7)
 - [ ] Complete shared/travel-profile.md with real data
 - [ ] Test destination research, itinerary, and budget workflows
 

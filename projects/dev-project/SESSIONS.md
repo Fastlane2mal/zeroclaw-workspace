@@ -4,65 +4,61 @@ Log of Claude sessions working on the platform. Most recent session first.
 
 ---
 
+## Session 6 — 2026-02-24
+
+**Focus:** Phase 7 — MANDATORY FIRST STEP protocol, all personas updated
+
+### Completed
+- Identified usability problem: Bob wasn't reading STATE.md without explicit path prompt
+- Fixed with MANDATORY FIRST STEP pattern: explicit file_read syntax + strong heading
+- Confirmed fix: "Hey Bob" now triggers automatic STATE.md read ✅
+- Delegated Phase 7 to Bob via single Telegram message
+- Bob updated all five remaining persona files (PENNY, LEN, ZIGGY, JOY, FRANK)
+- All six personas now read their domain files before every response
+
+### Key Learnings
+- Describing what to read is not enough — explicit file_read tool call syntax required
+- MANDATORY heading + "do not respond until files are read" instruction needed
+- Bob can handle bulk persona file updates reliably via Telegram
+- Delegation pattern confirmed: Claude plans + generates, Bob executes + updates
+
+### Files Modified (by Bob via Telegram)
+- workspace/personas/FRANK.md
+- workspace/personas/PENNY.md
+- workspace/personas/LEN.md
+- workspace/personas/ZIGGY.md
+- workspace/personas/JOY.md
+
+### Next Session (Claude)
+- Investigate SQLite question for Frank's pantry
+- Fill in shared/dietary-profile.md with real data
+- Test Frank meal plan generation end-to-end
+- Set up Sunday cron job
+
+---
+
 ## Session 5 — 2026-02-24
 
 **Focus:** Bob confirmed operational, dual-mode workflow live
 
 ### Completed
-- Diagnosed file_read path issue: ZeroClaw resolves paths relative to workspace root, not absolute
-- Fixed all persona files and SKILL.md with sed to strip absolute path prefix
-- Confirmed fix: Bob successfully read projects/dev-project/STATE.md via Telegram
-- Bob created dev-project/docs/ and dev-project/scripts/ directories
-- Bob wrote test entry to SESSIONS.md
-- Bob self-corrected BOB.md to use explicit file_read paths
-- Dual-mode workflow confirmed live: Bob (Telegram) + Claude (claude.ai)
-- Handed Phase 7 (remaining persona operational instructions) to Bob
-
-### Key Decisions
-- file_read paths must be relative to workspace root — never absolute
-- Bob handles day-to-day: file edits, directory creation, status updates
-- Claude handles: planning, architecture, generating larger content
-- Phase 7 delegated to Bob entirely — no Claude session needed
-
-### Key Learnings
-- file_read resolves via workspace_dir.join(filename) — confirmed from ZeroClaw source
-- Explicit path instruction in BOB.md needed: "Use file_read with path X" not just "read X"
-- Bob can self-correct his own persona file — useful pattern for future maintenance
-
-### Files Modified
-- workspace/personas/BOB.md (explicit file_read paths)
-- workspace/personas/FRANK.md (absolute paths stripped)
-- workspace/skills/personas/SKILL.md (absolute paths stripped)
-- dev-project/STATE.md, TODO.md, SESSIONS.md (updated)
-
-### Next Claude Session
-- Review Phase 7 completion (Bob should have updated PENNY, LEN, ZIGGY, JOY)
-- Plan Frank full implementation — SQLite vs markdown pantry question
-- Begin Phase 8: Frank meal plan generation end-to-end
+- Diagnosed file_read path issue: relative to workspace root, not absolute
+- Fixed all persona files and SKILL.md with sed
+- Bob read STATE.md, created directories, wrote SESSIONS.md ✅
+- Bob self-corrected BOB.md ✅
+- Dual-mode workflow confirmed live
 
 ---
 
 ## Session 4 — 2026-02-24
 
-**Focus:** Bob operational + priority switch
-
-### Completed
-- Added operational instructions block to BOB.md
-- Switched priority: Bob operational before Frank full implementation
-- Established dual-mode workflow concept
+**Focus:** Bob operational + priority switch to Bob before Frank
 
 ---
 
 ## Session 3 — 2026-02-24
 
-**Focus:** Phase 5 — Persona switching implementation
-
-### Completed
-- Researched ZeroClaw Skills and openclaw identity system from source
-- Built hybrid architecture: neutral SOUL.md + single personas skill
-- Fixed SKILL.toml [[tools]] bug
-- Confirmed Frank ✅, Ziggy ✅, neutral mode ✅
-- Created dev-project/ folder structure
+**Focus:** Phase 5 — persona switching fully implemented and tested
 
 ---
 
