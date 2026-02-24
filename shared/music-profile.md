@@ -29,10 +29,11 @@
   space — think artists that fans of the above would love
 - Lindisfarne have a strong North East connection — local tribute acts or 
   anniversary events may also be of interest
+- Check https://www.last.fm/user/fastlane2 and https://www.setlist.fm/user/fastlane2 for more Favourite Artists 
 
 ## Notes for Penny
 
-- Malcolm's taste runs toward folk, acoustic, and classic rock/indie
+- Malcolm's taste runs toward folk, acoustic, Celtic influence and classic rock/indie
 - Song writing lessons should be grounded in these genres where possible
 - Artists above can be used as reference points for style, structure, and lyrical 
   approach
