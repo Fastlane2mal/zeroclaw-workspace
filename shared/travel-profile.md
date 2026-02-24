@@ -42,8 +42,8 @@
   1. Good food is essential
   2. Authentic experiences over tourist traps
   3. Comfortable accommodation (not luxury, but decent)
-  4. Mix of activities — some culture, some relaxation
-  5. Value for money 6. spacious balcony
+  4. Mix of activities — some culture, some relaxation5. Value for money
+- 6. Private outside space
 - **What we avoid:**
 - Overly touristy places (cruise ship crowds)
 - Very long-haul flights (prefer under 6 hours)
