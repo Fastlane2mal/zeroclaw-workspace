@@ -11,6 +11,8 @@ of the Silverblue AI Workspace. Update this as new decisions are made.
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-02-25 | Node.js installation method deferred — decision pending (Session 8) | Three options evaluated: rpm-ostree (reboot required, cleanest for systemd), nvm (no reboot, Silverblue prefix issue), toolbox (needs wrapper script); rpm-ostree recommended |
+| 2026-02-25 | MCP server choice: nspady/google-calendar-mcp (@cocal/google-calendar-mcp npm) | 964 stars, most actively maintained, read-only support via enabled_tools, npx-based (no global install), persistent OAuth tokens |
 | 2026-02-25 | Google Calendar via MCP for Joy, Ziggy, Frank (Phase 15) | Real-time calendar access; personas learn from past events; native ZeroClaw MCP support; secure OAuth; extensible to other Google services |
 | 2026-02-25 | Calendar tokens stored in ~/.zeroclaw/secrets/ (gitignored) | Keep OAuth tokens local and secure; never committed to GitHub |
 | 2026-02-25 | Read-only calendar access (calendar.readonly scope) initially | Safety: personas can't accidentally modify calendar; users retain full control; can add write access later if needed |
@@ -86,6 +88,7 @@ These need to be resolved as we build:
 
 | Question | Options | Notes |
 |----------|---------|-------|
+| Node.js installation method for MCP | rpm-ostree (reboot, cleanest) / nvm (no reboot, prefix issue) / toolbox (wrapper script needed) | rpm-ostree recommended; decision deferred to next session |
 | Phase 15 calendar access scope | Just primary calendar / Multiple calendars (work, personal) | Start with primary; add others if needed |
 | Phase 15 historical data range | Last 1-2 years / Last 3 years / All time | 3 years likely sufficient for Joy and Ziggy patterns |
 | Phase 15 calendar write access | Read-only / Allow event creation (meal plans, gig bookings) | Start read-only; add write if valuable |

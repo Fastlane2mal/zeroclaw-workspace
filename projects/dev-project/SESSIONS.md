@@ -4,6 +4,38 @@ Log of Claude sessions working on the platform. Most recent session first.
 
 ---
 
+## Session 8 — 2026-02-25
+
+**Focus:** Phase 15 — Google Calendar MCP research and Node.js installation planning
+
+### Completed
+- Researched available Google Calendar MCP servers; selected `nspady/google-calendar-mcp` (@cocal/google-calendar-mcp)
+- Confirmed ZeroClaw v0.1.6 supports MCP servers natively
+- Confirmed Node.js not installed on Silverblue (`node: command not found`)
+- Evaluated three Node.js installation options for Silverblue + systemd service use case:
+  - rpm-ostree: reboot required, cleanest for systemd (recommended)
+  - nvm: no reboot, but Silverblue npm prefix conflict needs workaround
+  - toolbox: clean install, but needs wrapper script for systemd service
+- Documented full Phase 15 implementation plan (Google Cloud setup, OAuth, config.toml, persona updates)
+- Node.js installation method decision deferred to next session
+
+### Key Decisions
+- MCP server: `@cocal/google-calendar-mcp` (nspady, 964 stars, most maintained)
+- Joy and Ziggy prioritised for calendar access first (Frank to follow)
+- Node.js installation method: pending (rpm-ostree recommended)
+- Full path to `npx` must be used in config.toml (ZeroClaw systemd service PATH issue)
+- ZeroClaw MCP config syntax to verify with `zeroclaw config schema | grep -A 20 mcp`
+
+### Next Session
+1. Decide on and install Node.js (rpm-ostree recommended — reboot required)
+2. Set up Google Cloud project and download OAuth credentials JSON
+3. Create `~/.zeroclaw/secrets/`, store credentials, run OAuth flow
+4. Add MCP config to config.toml, verify with `zeroclaw doctor`, restart
+5. Test calendar access via Bob in Telegram
+6. Update JOY.md and ZIGGY.md with calendar integration instructions
+
+---
+
 ## Session 7 — 2026-02-25
 
 **Focus:** Logseq setup planning & Google Calendar integration design
