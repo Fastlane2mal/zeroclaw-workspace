@@ -4,6 +4,7 @@
 - **Writing:** Songwriting interests: folk, acoustic, Celtic, rock
 - **Listening:** Americana, folk, acoustic, Celtic, rock
 - ## Favourite Artists
+- https://link.deezer.com/s/32y6hrKJZiZuUGwn1Vy8Z
 - https://www.last.fm/user/fastlane2
 - | Artist | Notes |
   |--------|-------|
