@@ -1,7 +1,7 @@
 # Silverblue AI Workspace — Development State
 
 **Last updated:** 2026-02-25  
-**Current phase:** Phase 8 (Logseq) partially complete / Phase 15 (Calendar MCP) in progress  
+**Current phase:** Phase 8 (profile population) partially complete / Phase 15 (Calendar MCP) in progress  
 **Status:** Node.js install decision pending; Google Cloud setup not yet started
 
 ---
@@ -14,7 +14,7 @@
 - LiteLLM (Claude Haiku via API gateway, Podman quadlet, port 4000)
 - ZeroClaw v0.1.6 (systemd user service running)
 - Git workspace with auto-commit (15 min) and auto-push (1 hour)
-- Samba share (Windows access for Logseq/AnythingLLM)
+- Samba share (Windows access for VS Code/AnythingLLM)
 - GitHub private repo (Fastlane2mal/zeroclaw-workspace)
 - SSH key auth for GitHub
 
@@ -33,33 +33,23 @@
 
 ## What's Next
 
-### Phase 8: Logseq Setup ⬅️ CURRENT FOCUS
+### Phase 8: Profile Population ⬅️ CURRENT FOCUS
 
-**Status:** Documentation complete, ready for user implementation
+**Status:** Partially complete — some profiles filled, remainder to be done via VS Code
 
-**Why Logseq First:**
-- Shared profiles need filling in with real data
-- Editing markdown tables in terminal is impractical
-- Logseq on Windows reads/writes workspace via Samba
-- Frank's recipe research needs dietary-profile.md populated
-- Once profiles filled, all personas can reference them
-
-**Available Guides:**
-1. **logseq-fresh-start.md** — Wipe old config, connect to workspace, test cycle
-2. **profile-templates.md** — All 7 files with templates and guidance
+**Editor change:** Logseq replaced with VS Code (open source, intuitive, works directly on Samba share)
+**Knowledge base:** AnythingLLM covers this — Logseq's knowledge base features were never needed
 
 **User Tasks:**
-- [ ] Wipe old Logseq config (%APPDATA%\Logseq, %LOCALAPPDATA%\Logseq)
-- [ ] Launch Logseq, add graph → \\silverblue-ai\zeroclaw\workspace
-- [ ] Configure: Markdown format, disable journals
-- [ ] Test: create file → verify appears on Silverblue → wait 15 min → confirm git commit
-- [ ] Populate shared/dietary-profile.md (Malcolm & Jen preferences)
-- [ ] Populate shared/location.md (South Shields, seasonal produce)
+- [ ] Install VS Code on Windows (if not already installed)
+- [ ] Open `\\silverblue-ai\zeroclaw\workspace` as a folder in VS Code
+- [ ] Complete shared/dietary-profile.md (Malcolm & Jen preferences)
+- [ ] Complete shared/location.md (South Shields, seasonal produce)
 - [ ] Verify health-profile.md gitignored, then populate (local only)
-- [ ] Populate shared/music-profile.md (for Penny & Ziggy)
-- [ ] Populate shared/travel-profile.md (for Joy)
-- [ ] Populate shared/user-profile.md (household info)
-- [ ] Populate projects/meal-planner/pantry.md (current kitchen inventory)
+- [ ] Complete shared/music-profile.md (for Penny & Ziggy)
+- [ ] Complete shared/travel-profile.md (for Joy)
+- [ ] Complete shared/user-profile.md (household info)
+- [ ] Complete projects/meal-planner/pantry.md (current kitchen inventory)
 
 ### Phase 9: Frank Full Implementation
 
@@ -167,18 +157,14 @@ None. Phase 8 ready for user implementation.
 
 ## Next Session Tasks
 
-**For User:**
-1. Follow logseq-fresh-start.md guide
-2. Wipe old Logseq config folders
-3. Connect to workspace via Samba
-4. Test edit → git commit cycle
-5. Populate all 7 profiles using templates
-6. Verify profiles (except health-profile.md) committed to git
+**For User (next session):**
+1. Install VS Code, open workspace via `\\silverblue-ai\zeroclaw\workspace`
+2. Complete remaining profile files
+3. Decide on Node.js install method for Phase 15
 
 **For Claude (next session):**
-1. Verify Logseq setup successful
-2. Confirm all profiles populated
-3. Begin Frank implementation (Phase 9)
+1. Verify profiles populated
+2. Begin Phase 15 Node.js + Google Cloud setup
 
 ## Key Learnings
 
@@ -187,6 +173,6 @@ None. Phase 8 ready for user implementation.
 - [[tools]] not needed in SKILL.toml for ZeroClaw built-ins
 - Explicit file_read syntax + MANDATORY heading required for reliable on-activation reads
 - Bob can self-correct his own persona file
-- Logseq via Samba is the right way to edit workspace markdown — not terminal
+- VS Code is the right editor for the workspace — open Samba share as a folder, no app-specific concepts
 - MCP servers are the proper way to integrate external data sources (calendar, Gmail, etc.)
 - health-profile.md must be gitignored (never committed to GitHub)

@@ -6,7 +6,7 @@ Log of Claude sessions working on the platform. Most recent session first.
 
 ## Session 8 — 2026-02-25
 
-**Focus:** Phase 15 — Google Calendar MCP research and Node.js installation planning
+**Focus:** Phase 15 — Google Calendar MCP research, Node.js planning, and Logseq → VS Code switch
 
 ### Completed
 - Researched available Google Calendar MCP servers; selected `nspady/google-calendar-mcp` (@cocal/google-calendar-mcp)
@@ -18,6 +18,8 @@ Log of Claude sessions working on the platform. Most recent session first.
   - toolbox: clean install, but needs wrapper script for systemd service
 - Documented full Phase 15 implementation plan (Google Cloud setup, OAuth, config.toml, persona updates)
 - Node.js installation method decision deferred to next session
+- Replaced Logseq with VS Code as workspace markdown editor
+- Confirmed AnythingLLM covers knowledge base/RAG — Logseq was only ever an editor
 
 ### Key Decisions
 - MCP server: `@cocal/google-calendar-mcp` (nspady, 964 stars, most maintained)
@@ -25,14 +27,18 @@ Log of Claude sessions working on the platform. Most recent session first.
 - Node.js installation method: pending (rpm-ostree recommended)
 - Full path to `npx` must be used in config.toml (ZeroClaw systemd service PATH issue)
 - ZeroClaw MCP config syntax to verify with `zeroclaw config schema | grep -A 20 mcp`
+- VS Code replaces Logseq — open `\\silverblue-ai\zeroclaw\workspace` as a folder
+- Knowledge base = AnythingLLM; editor = VS Code; no overlap needed
 
 ### Next Session
-1. Decide on and install Node.js (rpm-ostree recommended — reboot required)
-2. Set up Google Cloud project and download OAuth credentials JSON
-3. Create `~/.zeroclaw/secrets/`, store credentials, run OAuth flow
-4. Add MCP config to config.toml, verify with `zeroclaw doctor`, restart
-5. Test calendar access via Bob in Telegram
-6. Update JOY.md and ZIGGY.md with calendar integration instructions
+1. Install VS Code on Windows, open workspace via Samba share
+2. Populate remaining profile files using VS Code
+3. Decide on and install Node.js (rpm-ostree recommended — reboot required)
+4. Set up Google Cloud project and download OAuth credentials JSON
+5. Create `~/.zeroclaw/secrets/`, store credentials, run OAuth flow
+6. Add MCP config to config.toml, verify with `zeroclaw doctor`, restart
+7. Test calendar access via Bob in Telegram
+8. Update JOY.md and ZIGGY.md with calendar integration instructions
 
 ---
 
