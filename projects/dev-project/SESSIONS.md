@@ -4,33 +4,49 @@ Log of Claude sessions working on the platform. Most recent session first.
 
 ---
 
-## Session 7 — 2026-02-24
+## Session 7 — 2026-02-25
 
-**Focus:** Priority reorder — Logseq before Frank, recipe research feature added
+**Focus:** Logseq setup planning & Google Calendar integration design
 
 ### Completed
-- Decided to set up Logseq before Frank's full implementation
-- Rationale: shared profiles need filling in first; Logseq via Samba is the right editing tool
-- Added Frank recipe research feature to Phase 9 plan:
-  - Fetch from diabetes.org.uk and bbc.co.uk/food
-  - Cross-reference with dietary-profile.md
-  - Filter Malcolm's and Jen's dislikes
-  - Save shortlist to projects/meal-planner/new-recipes.md
-- Confirmed pantry.md switch — asked Bob to delete food.db, schema.sql, seed_data.sql
-- Updated Frank's MANDATORY FIRST STEP to reference pantry.md
-- Updated root DECISIONS.md with all decisions from today's sessions
-- Reordered phases: Logseq (8) → Frank (9) → AnythingLLM (10) → Len (11) → Ziggy (12) → Penny (13) → Joy (14)
+- Created comprehensive Logseq fresh start guide (wipe old config, clean setup)
+- Created all 7 profile templates:
+  - shared/dietary-profile.md
+  - shared/location.md
+  - shared/health-profile.md (local only, gitignored)
+  - shared/music-profile.md
+  - shared/travel-profile.md
+  - shared/user-profile.md
+  - projects/meal-planner/pantry.md
+- Designed Phase 15: Google Calendar Integration via MCP
+  - Joy learns from past holidays (destinations, timing patterns)
+  - Ziggy learns from past gig attendance (artists, venues)
+  - Frank checks for restaurant bookings and dinner parties
+  - ~3 hour implementation estimate
+- Documented complete MCP setup: OAuth, server installation, persona updates
+- Identified future extensions: Gmail, Drive, Contacts, Spotify (same MCP pattern)
+- Updated all project files (DECISIONS.md, SESSIONS.md, STATE.md, TODO.md)
 
 ### Key Decisions
-- Logseq promoted before Frank — editing shared profiles in terminal impractical
-- Frank recipe research: on-demand feature, source from diabetes.org.uk and bbc.co.uk/food
-- pantry.md replaces food.db entirely — simpler, file_read compatible, human-editable
+- Logseq via Samba is proper editing interface for shared profiles
+- Fresh Logseq start: wipe %APPDATA%\Logseq and %LOCALAPPDATA%\Logseq
+- Google Calendar via MCP (Phase 15) for Joy, Ziggy, Frank
+- Calendar tokens in ~/.zeroclaw/secrets/ (gitignored)
+- Read-only calendar access initially (calendar.readonly scope)
+- MCP pattern proven extensible to other Google services
 
-### Next Session (Claude)
-- Logseq installation and Samba graph setup
-- Verify edit → git auto-commit cycle works
-- Fill in shared profiles
-- Then Frank implementation
+### Outputs Created
+1. `logseq-fresh-start.md` — Step-by-step Logseq reset and workspace connection
+2. `profile-templates.md` — All 7 profile templates with detailed guidance
+3. `google-calendar-integration.md` — Overview of calendar integration options
+4. `phase-15-calendar-implementation.md` — Complete MCP implementation plan
+
+### Next Session (User)
+- Wipe old Logseq config on Windows
+- Connect Logseq to \\silverblue-ai\zeroclaw\workspace
+- Test edit → git auto-commit cycle
+- Populate all 7 profile files with real data
+- Verify profiles committed to git (except health-profile.md)
 
 ---
 

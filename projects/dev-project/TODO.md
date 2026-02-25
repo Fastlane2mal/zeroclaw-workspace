@@ -17,31 +17,52 @@ Check off items as completed. Update STATE.md after each session.
 
 ## Phase 8: Logseq Setup ⬅️ YOU ARE HERE
 
-### Installation
-- [ ] Install Logseq on Windows 11 (if not already)
-- [ ] Add Graph → point to \\silverblue-ai\zeroclaw\workspace
-- [ ] Verify Logseq reads existing files (personas/, projects/, shared/)
-- [ ] Configure graph settings (prefer markdown mode)
+**Status:** Documentation complete, ready for user implementation
 
-### Verify edit cycle
-- [ ] Edit a test file in Logseq
-- [ ] Confirm git auto-commit picks it up within 15 minutes
-- [ ] Confirm file readable on Silverblue after edit
+**Guides available:**
+- logseq-fresh-start.md
+- profile-templates.md
 
-### Fill in shared profiles (the main reason Logseq is first)
-- [ ] shared/dietary-profile.md — Malcolm + Jen preferences, dislikes, any health-related diet needs
-- [ ] shared/location.md — South Shields, NE England, seasonal produce notes
-- [ ] shared/health-profile.md — local only, never committed (gitignored)
-- [ ] shared/music-profile.md — genres, artists, gig preferences
-- [ ] shared/travel-profile.md — travel style, budget, past trips, preferences
-- [ ] shared/user-profile.md — general Malcolm + Jen household profile
+### Wipe Old Logseq Config
+- [ ] Close Logseq completely (check system tray)
+- [ ] Delete %APPDATA%\Logseq folder
+- [ ] Delete %LOCALAPPDATA%\Logseq folder
+- [ ] Restart computer
 
-### Also fill in via Logseq
-- [ ] projects/meal-planner/pantry.md — what's actually in the kitchen
+### Fresh Logseq Setup
+- [ ] Launch Logseq
+- [ ] Add graph → \\silverblue-ai\zeroclaw\workspace
+- [ ] Configure: Markdown format
+- [ ] Configure: Disable journals
+
+### Test Edit Cycle
+- [ ] Create test file in Logseq
+- [ ] Verify file appears on Silverblue
+- [ ] Wait 15 minutes for auto-commit
+- [ ] Check git log for commit
+- [ ] Delete test file
+- [ ] Verify deletion commits
+
+### Populate Profiles (Main Task)
+- [ ] shared/dietary-profile.md — Malcolm + Jen food preferences, dislikes
+- [ ] shared/location.md — South Shields, seasonal produce
+- [ ] Verify health-profile.md gitignored first
+- [ ] shared/health-profile.md — health conditions (LOCAL ONLY)
+- [ ] shared/music-profile.md — musical taste, gig preferences
+- [ ] shared/travel-profile.md — travel style, budget, past trips
+- [ ] shared/user-profile.md — general household info
+- [ ] projects/meal-planner/pantry.md — current kitchen inventory
+
+### Verification
+- [ ] All profiles have real data (not placeholder [Fill in] text)
+- [ ] Git commits show 6 new files (health-profile.md NOT committed)
+- [ ] health-profile.md exists locally but not in git log
 
 ---
 
 ## Phase 9: Frank (Meal Planner) Full Implementation
+
+**Prerequisites:** Phase 8 complete (all profiles populated)
 
 ### Core
 - [ ] Test Frank reading pantry.md
@@ -105,11 +126,72 @@ Check off items as completed. Update STATE.md after each session.
 
 ---
 
+## Phase 15: Google Calendar Integration
+
+**Status:** Fully designed, ready to implement (~3 hours)
+
+**Prerequisites:** Phases 8-14 complete
+
+**Guide:** phase-15-calendar-implementation.md
+
+### Research & Setup (30 mins)
+- [ ] Research available Google Calendar MCP servers
+- [ ] Choose: Official / Community / Custom build
+- [ ] Document choice in DECISIONS.md
+
+### Google Cloud Setup (20 mins)
+- [ ] Create Google Cloud project "ZeroClaw Calendar Access"
+- [ ] Enable Google Calendar API
+- [ ] Configure OAuth consent screen
+- [ ] Create OAuth credentials (Desktop app)
+- [ ] Download credentials.json
+
+### MCP Server Installation (30 mins)
+- [ ] Create ~/.zeroclaw/mcp-servers/ directory
+- [ ] Create ~/.zeroclaw/secrets/ directory (chmod 700)
+- [ ] Install chosen MCP server
+- [ ] Store credentials securely
+- [ ] Run initial OAuth flow
+- [ ] Test MCP server standalone
+
+### ZeroClaw Integration (20 mins)
+- [ ] Add secrets/ to .gitignore
+- [ ] Add MCP configuration to config.toml
+- [ ] Validate configuration (zeroclaw doctor)
+- [ ] Restart ZeroClaw
+- [ ] Check logs for MCP server connection
+
+### Test Calendar Access (15 mins)
+- [ ] Test via Bob: list recent events
+- [ ] Test via Bob: search for "holiday"
+- [ ] Test error handling
+
+### Update Personas (30 mins)
+- [ ] Add calendar integration to JOY.md
+- [ ] Add calendar integration to ZIGGY.md
+- [ ] Add calendar integration to FRANK.md
+
+### Test Persona Integration (30 mins)
+- [ ] Test Joy with calendar (trip recommendations)
+- [ ] Test Ziggy with calendar (gig recommendations)
+- [ ] Test Frank with calendar (meal planning)
+
+### Documentation (15 mins)
+- [ ] Update DECISIONS.md
+- [ ] Update STATE.md
+- [ ] Update TODO.md
+- [ ] Mark Phase 15 complete
+
+---
+
 ## Future / Nice-to-Have
 
+- [ ] Gmail MCP integration (for Len)
+- [ ] Google Drive MCP (store meal plans, itineraries)
+- [ ] Contacts MCP (personalize recommendations)
+- [ ] Spotify MCP (enhance Ziggy)
 - [ ] Weekly digest generation (Len)
 - [ ] Scheduled gig roundup (Ziggy)
 - [ ] Travel deal alerts (Joy)
-- [ ] Joy + Ziggy trip coordination
-- [ ] Ziggy API integrations (Songkick etc.)
+- [ ] Joy + Ziggy trip coordination (concerts + travel)
 - [ ] workspace-backup/ cleanup
