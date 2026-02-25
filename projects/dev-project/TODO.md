@@ -15,33 +15,15 @@ Check off items as completed. Update STATE.md after each session.
 
 ---
 
-## Phase 8: Logseq Setup ⬅️ YOU ARE HERE
+## Phase 8: Profile Population ⬅️ YOU ARE HERE
 
-**Status:** Documentation complete, ready for user implementation
+**Editor:** VS Code (replaces Logseq — open source, open `\\silverblue-ai\zeroclaw\workspace` as a folder)
+**Note:** Knowledge base is AnythingLLM's job — no Logseq needed
 
-**Guides available:**
-- logseq-fresh-start.md
-- profile-templates.md
-
-### Wipe Old Logseq Config
-- [ ] Close Logseq completely (check system tray)
-- [ ] Delete %APPDATA%\Logseq folder
-- [ ] Delete %LOCALAPPDATA%\Logseq folder
-- [ ] Restart computer
-
-### Fresh Logseq Setup
-- [ ] Launch Logseq
-- [ ] Add graph → \\silverblue-ai\zeroclaw\workspace
-- [ ] Configure: Markdown format
-- [ ] Configure: Disable journals
-
-### Test Edit Cycle
-- [ ] Create test file in Logseq
-- [ ] Verify file appears on Silverblue
-- [ ] Wait 15 minutes for auto-commit
-- [ ] Check git log for commit
-- [ ] Delete test file
-- [ ] Verify deletion commits
+### Setup VS Code
+- [ ] Install VS Code on Windows (code.visualstudio.com)
+- [ ] File → Open Folder → `\\silverblue-ai\zeroclaw\workspace`
+- [ ] Install "Markdown All in One" extension (optional but handy for table editing)
 
 ### Populate Profiles (Main Task)
 - [ ] shared/dietary-profile.md — Malcolm + Jen food preferences, dislikes
@@ -55,7 +37,7 @@ Check off items as completed. Update STATE.md after each session.
 
 ### Verification
 - [ ] All profiles have real data (not placeholder [Fill in] text)
-- [ ] Git commits show 6 new files (health-profile.md NOT committed)
+- [ ] Git commits show profile files (health-profile.md NOT committed)
 - [ ] health-profile.md exists locally but not in git log
 
 ---

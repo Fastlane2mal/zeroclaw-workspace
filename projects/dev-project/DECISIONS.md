@@ -52,14 +52,17 @@ of the Silverblue AI Workspace. Update this as new decisions are made.
 | 2026-02-23 | WhatsApp content forwarded to Telegram for Len to process | No new infrastructure needed; ZeroClaw already monitors Telegram |
 | 2026-02-23 | Structured notes saved to projects/content-library/ by category | Makes AnythingLLM search more effective; consistent format aids retrieval |
 
-### Logseq
+### Workspace Editor
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-02-25 | Replace Logseq with VS Code as workspace markdown editor | Logseq not intuitive; VS Code is open source, familiar, works directly on Samba share as a folder — no app-specific concepts to learn |
+| 2026-02-25 | Knowledge base function confirmed as AnythingLLM's role — not Logseq | AnythingLLM handles RAG/indexing; Logseq was only ever a markdown editor in this stack |
+| 2026-02-25 | Drop workspace/logseq/ folder — no longer needed | Logseq graph folder redundant now VS Code is the editor; workspace root is the graph |
 | 2026-02-25 | Logseq setup prioritized before Frank (Phase 8) | Shared profiles need real data; editing markdown tables in terminal impractical; Logseq via Samba is proper editing interface |
-| 2026-02-25 | Fresh Logseq start: wipe %APPDATA%\Logseq and %LOCALAPPDATA%\Logseq | Previous Logseq attempts left stale config; clean slate ensures proper workspace connection |
-| 2026-02-23 | Start Logseq fresh — discard previous graph attempts | Previous setup was experimental and inconsistent; clean start with guidance |
-| 2026-02-23 | Logseq graph at workspace/logseq/ | On Samba share, auto-backed-up via git, accessible from Windows |
+| 2026-02-25 | Fresh Logseq start: wipe %APPDATA%\Logseq and %LOCALAPPDATA%\Logseq | Previous Logseq attempts left stale config; clean slate ensures proper workspace connection — superseded by VS Code decision |
+| 2026-02-23 | Start Logseq fresh — discard previous graph attempts | Previous setup was experimental and inconsistent — superseded by VS Code decision |
+| 2026-02-23 | Logseq graph at workspace/logseq/ | Superseded — VS Code opens workspace root directly |
 
 ### AnythingLLM
 
