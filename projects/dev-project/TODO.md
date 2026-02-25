@@ -20,6 +20,8 @@ Check off items as completed. Update STATE.md after each session.
 **Editor:** VS Code (replaces Logseq — open source, open `\\silverblue-ai\zeroclaw\workspace` as a folder)
 **Note:** Knowledge base is AnythingLLM's job — no Logseq needed
 
+**Infrastructure Update:** Persona state persistence now active — personas auto-resume after restart
+
 ### Setup VS Code
 - [ ] Install VS Code on Windows (code.visualstudio.com)
 - [ ] File → Open Folder → `\\silverblue-ai\zeroclaw\workspace`

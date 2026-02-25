@@ -35,6 +35,7 @@ of the Silverblue AI Workspace. Update this as new decisions are made.
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-02-25 | Persona state persistence via `.persona-state` file | Survives system restarts and ZeroClaw restarts; seamless continuation without manual re-triggering; file-based approach is simple, reliable, and git-compatible |
 | 2026-02-24|Added Joy (travel planner) as sixth persona|Clear use case for research-heavy planning with budget tracking and itinerary generation; natural fit with other lifestyle assistants
 | 2026-02-24|Joy's project folder: workspace/projects/travel-planning/ with /trips, /ideas, /research subfolders|Organizes by trip stage: research (exploring options) → ideas (saved for later) → trips (confirmed/completed)
 | 2026-02-24|Created shared/travel-profile.md for Joy's reference|Captures travel style, preferences, budget ranges, constraints, and past trip learnings; helps Joy learn from experience
@@ -108,6 +109,20 @@ These need to be resolved as we build:
 ---
 
 ## Completed Tasks
+
+### Session 9: Persona State Persistence (2026-02-25)
+
+**Result:** Seamless persona continuation across system restarts
+
+**Completed:**
+- Implemented `.persona-state` file at workspace root
+- Auto-activation on ZeroClaw startup if persona was active before restart
+- All persona switches now persist state immediately
+- Tested and verified working
+
+**Key feature:** Users can switch to any persona and system restart won't lose the context — persona auto-activates on next ZeroClaw startup.
+
+---
 
 ### Session 7: Logseq Setup Planning & Calendar Integration Design (2026-02-25)
 
