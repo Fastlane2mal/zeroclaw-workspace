@@ -56,7 +56,8 @@
 - [ x] Garlic (1 bulbs)
 - [ x] Carrots (5)
 - [ ] Tomatoes (X)
-- [ ] Peppers (X, colours)
+- [x ] Peppers (1, Red)
+- [x ] Peppers (1, Green)
 - [ ] Courgettes (X)
 - [ ] Broccoli (X head)
 - [ ] Cauliflower (X head)
@@ -66,7 +67,7 @@
   ---
 - ## Tinned & Preserved
 - ### Tinned Vegetables
-- [ ] Chopped tomatoes (X tins)
+- [x ] Chopped tomatoes (4 tins)
 - [ ] Sweetcorn (X tins)
 - [ ] [Add others]
 - ### Tinned Proteins
@@ -117,8 +118,8 @@
   ---
 - ## Freezer Contents
 - ### Frozen Vegetables
-- [ ] Peas (Xg)
-- [ ] Sweetcorn (Xg)
+- [ x] Peas (1g)
+- [ x] Sweetcorn (1g)
 - [ ] Mixed veg (Xg)
 - [ ] [Add others]
 - ### Frozen Meals/Convenience
