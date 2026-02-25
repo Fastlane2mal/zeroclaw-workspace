@@ -33,7 +33,7 @@ class MusicProfileIngest:
         """Fetch top artists from Last.fm."""
         print(f"Fetching Last.fm top artists ({period})...")
         params = {
-            "method": "user.gettopArtists",
+            "method": "user.getTopArtists",
             "user": self.lastfm_user,
             "api_key": self.lastfm_api_key,
             "format": "json",
@@ -61,7 +61,7 @@ class MusicProfileIngest:
         """Fetch top tracks from Last.fm."""
         print(f"Fetching Last.fm top tracks ({period})...")
         params = {
-            "method": "user.gettopTracks",
+            "method": "user.getTopTracks",
             "user": self.lastfm_user,
             "api_key": self.lastfm_api_key,
             "format": "json",
@@ -85,56 +85,45 @@ class MusicProfileIngest:
             print(f"  ✗ Error: {e}")
             return []
 
-    def fetch_lastfm_loved_tracks(self, limit: int = 100) -> List[Dict]:
-        """Fetch loved tracks from Last.fm."""
-        print(f"Fetching Last.fm loved tracks...")
-        params = {
-            "method": "user.getLovedTracks",
-            "user": self.lastfm_user,
-            "api_key": self.lastfm_api_key,
-            "format": "json",
-            "limit": limit
-        }
+    def fetch_lastfm_recent_tracks_with_stats(self, pages: int = 5) -> List[Dict]:
+        """Fetch recent tracks from Last.fm across multiple pages for comprehensive stats."""
+        print(f"Fetching Last.fm recent tracks (comprehensive stats)...")
+        all_tracks = []
         
         try:
-            response = requests.get(self.lastfm_base, params=params)
-            response.raise_for_status()
-            data = response.json()
+            for page in range(1, pages + 1):
+                params = {
+                    "method": "user.getRecentTracks",
+                    "user": self.lastfm_user,
+                    "api_key": self.lastfm_api_key,
+                    "format": "json",
+                    "limit": 50,
+                    "page": page,
+                    "extended": "1"  # Get extended info with play counts
+                }
+                
+                response = requests.get(self.lastfm_base, params=params)
+                response.raise_for_status()
+                data = response.json()
+                
+                if "recenttracks" in data:
+                    tracks = data["recenttracks"].get("track", [])
+                    if not isinstance(tracks, list):
+                        tracks = [tracks] if tracks else []
+                    all_tracks.extend(tracks)
+                    
+                    # Check pagination info
+                    attr = data["recenttracks"].get("@attr", {})
+                    current_page = int(attr.get("page", 1))
+                    total_pages = int(attr.get("totalPages", 1))
+                    
+                    if current_page >= total_pages:
+                        break
+                else:
+                    break
             
-            if "lovedtracks" in data:
-                tracks = data["lovedtracks"]["track"]
-                print(f"  ✓ Retrieved {len(tracks)} loved tracks")
-                return tracks
-            else:
-                print(f"  ✗ No loved tracks found")
-                return []
-        except Exception as e:
-            print(f"  ✗ Error: {e}")
-            return []
-
-    def fetch_lastfm_recent_tracks(self, limit: int = 50) -> List[Dict]:
-        """Fetch recent tracks from Last.fm."""
-        print(f"Fetching Last.fm recent tracks...")
-        params = {
-            "method": "user.getRecentTracks",
-            "user": self.lastfm_user,
-            "api_key": self.lastfm_api_key,
-            "format": "json",
-            "limit": limit
-        }
-        
-        try:
-            response = requests.get(self.lastfm_base, params=params)
-            response.raise_for_status()
-            data = response.json()
-            
-            if "recenttracks" in data:
-                tracks = data["recenttracks"]["track"]
-                print(f"  ✓ Retrieved {len(tracks)} recent tracks")
-                return tracks
-            else:
-                print(f"  ✗ No recent tracks found")
-                return []
+            print(f"  ✓ Retrieved {len(all_tracks)} recent tracks with stats")
+            return all_tracks
         except Exception as e:
             print(f"  ✗ Error: {e}")
             return []
@@ -201,6 +190,29 @@ class MusicProfileIngest:
                     "rank": artist.get("@attr", {}).get("rank", "N/A")
                 }
         
+        # Extract song stats from recent tracks
+        song_stats = []
+        seen_tracks = set()
+        for track in self.data["last_fm"].get("recent_tracks_stats", []):
+            artist = track.get("artist", {})
+            if isinstance(artist, dict):
+                artist_name = artist.get("name", "Unknown")
+            else:
+                artist_name = str(artist)
+            
+            track_name = track.get("name", "Unknown")
+            track_key = f"{artist_name}|{track_name}"
+            
+            # Avoid duplicates
+            if track_key not in seen_tracks:
+                seen_tracks.add(track_key)
+                song_stats.append({
+                    "name": track_name,
+                    "artist": artist_name,
+                    "playcount": int(track.get("playcount", 0)),
+                    "loved": track.get("loved", "0")
+                })
+        
         # Extract unique artists from Setlist.fm
         setlistfm_artists = {}
         for concert in self.data["setlist_fm"].get("attended_concerts", []):
@@ -228,17 +240,23 @@ class MusicProfileIngest:
         
         self.data["aggregated"] = {
             "artists": all_artists,
-            "total_last_fm_scrobbles": len(self.data["last_fm"].get("recent_tracks", [])),
+            "total_artists": len(all_artists),
             "total_concerts_attended": len(self.data["setlist_fm"].get("attended_concerts", [])),
             "unique_artists_with_concerts": len(setlistfm_artists),
             "top_artists_by_playcount": sorted(
                 lastfm_artists.items(),
                 key=lambda x: x[1]["playcount"],
                 reverse=True
-            )[:20]
+            )[:20],
+            "song_stats": sorted(
+                song_stats,
+                key=lambda x: x["playcount"],
+                reverse=True
+            )[:50]
         }
         
         print(f"  ✓ Aggregated {len(all_artists)} unique artists")
+        print(f"  ✓ Aggregated {len(song_stats)} unique tracks with play counts")
 
     def ingest(self) -> Dict[str, Any]:
         """Run full ingestion pipeline."""
@@ -247,8 +265,7 @@ class MusicProfileIngest:
         # Last.fm data
         self.data["last_fm"]["top_artists"] = self.fetch_lastfm_top_artists()
         self.data["last_fm"]["top_tracks"] = self.fetch_lastfm_top_tracks()
-        self.data["last_fm"]["loved_tracks"] = self.fetch_lastfm_loved_tracks()
-        self.data["last_fm"]["recent_tracks"] = self.fetch_lastfm_recent_tracks()
+        self.data["last_fm"]["recent_tracks_stats"] = self.fetch_lastfm_recent_tracks_with_stats(pages=5)
         
         # Setlist.fm data
         self.data["setlist_fm"]["user_profile"] = self.fetch_setlistfm_user_profile()
@@ -283,9 +300,8 @@ class MusicProfileIngest:
         # Summary
         agg = self.data.get("aggregated", {})
         md += "## Summary\n\n"
-        md += f"- **Unique Artists:** {len(agg.get('artists', {}))}\n"
+        md += f"- **Total Unique Artists:** {agg.get('total_artists', 0)}\n"
         md += f"- **Concerts Attended:** {agg.get('total_concerts_attended', 0)}\n"
-        md += f"- **Last.fm Scrobbles (recent sample):** {agg.get('total_last_fm_scrobbles', 0)}\n"
         md += f"- **Artists with Concert Attendance:** {agg.get('unique_artists_with_concerts', 0)}\n\n"
         
         # Top artists by playcount
@@ -295,11 +311,12 @@ class MusicProfileIngest:
             concert_str = f" | {concerts} concert{'s' if concerts != 1 else ''}" if concerts > 0 else ""
             md += f"- **{artist}** — {data['playcount']} plays{concert_str}\n"
         
-        md += "\n## Loved Tracks (Last.fm)\n\n"
-        for i, track in enumerate(self.data["last_fm"].get("loved_tracks", [])[:10], 1):
-            artist = track.get("artist", {}).get("name", "Unknown")
+        md += "\n## Top Tracks (by playcount)\n\n"
+        for i, track in enumerate(agg.get("song_stats", [])[:15], 1):
             name = track.get("name", "Unknown")
-            md += f"{i}. *{name}* — {artist}\n"
+            artist = track.get("artist", "Unknown")
+            playcount = track.get("playcount", 0)
+            md += f"{i}. *{name}* — {artist} ({playcount} plays)\n"
         
         md += "\n## Concert Venues & Artists\n\n"
         concert_artists = {}

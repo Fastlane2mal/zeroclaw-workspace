@@ -1,12 +1,11 @@
 # Music Profile
 
-*Generated 2026-02-25T16:53:06.056700*
+*Generated 2026-02-25T17:58:23.534907*
 
 ## Summary
 
-- **Unique Artists:** 100
+- **Total Unique Artists:** 100
 - **Concerts Attended:** 0
-- **Last.fm Scrobbles (recent sample):** 50
 - **Artists with Concert Attendance:** 0
 
 ## Top Artists (by Last.fm playcount)
@@ -27,18 +26,23 @@
 - **Bad Company** — 114 plays
 - **R.E.M.** — 112 plays
 
-## Loved Tracks (Last.fm)
+## Top Tracks (by playcount)
 
-1. *Not All Is Fair* — Heron Red
-2. *You Through My Eyes* — Dylan Harcourt - Topic
-3. *Heron Red* — The Island - Paul Brady Cover
-4. *Moonchild* — Jacques Stotzem
-5. *You Weren't Even There* — Heron Red
-6. *The Godin Seagull merlin* — Jan Laurenz
-7. *Celtic jam on the Avante by Veillette Gryphon 12 string* — Jan Laurenz
-8. *Little Bit Closer* — Sam Fender
-9. *Remember My Name* — Sam Fender
-10. *52 years ago* — Dan Reeder
+1. *McNeela Music* — The Maid Behind the Bar ft. Liam O'Connor (0 plays)
+2. *UP Leitrim* — Irish music tunes on Setanta Low Eb Whistle (0 plays)
+3. *The Drunken Landlady* — Tin Whistle Tunes On Irish C Whistle (0 plays)
+4. *The First Time Ever I Saw Your Face - cover song by Sean Rowe* — Sean Rowe (0 plays)
+5. *Dream A Little Dream* — The Beautiful South (0 plays)
+6. *A Little Time* — The Beautiful South (0 plays)
+7. *Livin' Thing (New Version)* — The Beautiful South (0 plays)
+8. *Radio Song* — R.E.M. (0 plays)
+9. *Here I Go Again 2004 Live Video* — Whitesnake (0 plays)
+10. *Everybody's Talkin'* — The Beautiful South (0 plays)
+11. *pickup audio comparison* — K&K Pure Mini vs Schatten HFN passive (0 plays)
+12. *Todd Snider - HIGH, LONESOME AND THEN SOME.* — Todd Snider (0 plays)
+13. *Get a grip on yourself* — SimFin (0 plays)
+14. *Life In A Northern Town_master* — running to stand still (0 plays)
+15. *If I Should Fall Behind_master* — Stealin' Thunder (0 plays)
 
 ## Concert Venues & Artists
 
