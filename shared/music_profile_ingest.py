@@ -7,6 +7,7 @@ from Last.fm and Setlist.fm APIs into a unified profile.
 
 import requests
 import json
+import time
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any
@@ -99,7 +100,7 @@ class MusicProfileIngest:
                     "format": "json",
                     "limit": 50,
                     "page": page,
-                    "extended": "1"  # Get extended info with play counts
+                    "extended": "1"
                 }
                 
                 response = requests.get(self.lastfm_base, params=params)
@@ -112,7 +113,6 @@ class MusicProfileIngest:
                         tracks = [tracks] if tracks else []
                     all_tracks.extend(tracks)
                     
-                    # Check pagination info
                     attr = data["recenttracks"].get("@attr", {})
                     current_page = int(attr.get("page", 1))
                     total_pages = int(attr.get("totalPages", 1))
@@ -121,6 +121,8 @@ class MusicProfileIngest:
                         break
                 else:
                     break
+                
+                time.sleep(0.6)
             
             print(f"  ✓ Retrieved {len(all_tracks)} recent tracks with stats")
             return all_tracks
@@ -135,11 +137,14 @@ class MusicProfileIngest:
         url = f"{self.setlistfm_base}user/{self.setlistfm_user}"
         
         try:
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
             data = response.json()
             print(f"  ✓ Retrieved user profile")
             return data
+        except requests.exceptions.HTTPError as e:
+            print(f"  ✗ HTTP Error {response.status_code}: {response.text[:200]}")
+            return {}
         except Exception as e:
             print(f"  ✗ Error: {e}")
             return {}
@@ -154,24 +159,28 @@ class MusicProfileIngest:
         page = 1
         
         try:
-            while page <= (limit // 20 + 1):  # API returns 20 per page
+            while page <= (limit // 20 + 1):
                 params = {"p": page}
-                response = requests.get(url, headers=headers, params=params)
+                response = requests.get(url, headers=headers, params=params, timeout=10)
                 response.raise_for_status()
                 data = response.json()
                 
                 if "setlist" in data:
                     concerts.extend(data["setlist"])
                     
-                    # Check if there are more pages
                     if len(data.get("setlist", [])) < 20:
                         break
                     page += 1
                 else:
                     break
+                
+                time.sleep(0.6)
             
             print(f"  ✓ Retrieved {len(concerts)} attended concerts")
             return concerts
+        except requests.exceptions.HTTPError as e:
+            print(f"  ✗ HTTP Error {response.status_code}: {response.text[:200]}")
+            return []
         except Exception as e:
             print(f"  ✗ Error: {e}")
             return []
@@ -180,7 +189,6 @@ class MusicProfileIngest:
         """Aggregate all fetched data into unified profile."""
         print("\nAggregating data...")
         
-        # Extract unique artists from Last.fm
         lastfm_artists = {}
         for artist in self.data["last_fm"].get("top_artists", []):
             name = artist.get("name")
@@ -190,7 +198,6 @@ class MusicProfileIngest:
                     "rank": artist.get("@attr", {}).get("rank", "N/A")
                 }
         
-        # Extract song stats from recent tracks
         song_stats = []
         seen_tracks = set()
         for track in self.data["last_fm"].get("recent_tracks_stats", []):
@@ -203,7 +210,6 @@ class MusicProfileIngest:
             track_name = track.get("name", "Unknown")
             track_key = f"{artist_name}|{track_name}"
             
-            # Avoid duplicates
             if track_key not in seen_tracks:
                 seen_tracks.add(track_key)
                 song_stats.append({
@@ -213,7 +219,6 @@ class MusicProfileIngest:
                     "loved": track.get("loved", "0")
                 })
         
-        # Extract unique artists from Setlist.fm
         setlistfm_artists = {}
         for concert in self.data["setlist_fm"].get("attended_concerts", []):
             artist_name = concert.get("artist", {}).get("name")
@@ -222,7 +227,6 @@ class MusicProfileIngest:
                     setlistfm_artists[artist_name] = {"concert_count": 0}
                 setlistfm_artists[artist_name]["concert_count"] += 1
         
-        # Merge artist data
         all_artists = {}
         for name, data in lastfm_artists.items():
             all_artists[name] = {
@@ -262,16 +266,13 @@ class MusicProfileIngest:
         """Run full ingestion pipeline."""
         print("Starting Music Profile Ingestion...\n")
         
-        # Last.fm data
         self.data["last_fm"]["top_artists"] = self.fetch_lastfm_top_artists()
         self.data["last_fm"]["top_tracks"] = self.fetch_lastfm_top_tracks()
         self.data["last_fm"]["recent_tracks_stats"] = self.fetch_lastfm_recent_tracks_with_stats(pages=5)
         
-        # Setlist.fm data
         self.data["setlist_fm"]["user_profile"] = self.fetch_setlistfm_user_profile()
         self.data["setlist_fm"]["attended_concerts"] = self.fetch_setlistfm_attended_concerts()
         
-        # Aggregate
         self.aggregate_data()
         
         print("\n✓ Ingestion complete!")
@@ -297,14 +298,12 @@ class MusicProfileIngest:
         md = "# Music Profile\n\n"
         md += f"*Generated {self.data['ingested_at']}*\n\n"
         
-        # Summary
         agg = self.data.get("aggregated", {})
         md += "## Summary\n\n"
         md += f"- **Total Unique Artists:** {agg.get('total_artists', 0)}\n"
         md += f"- **Concerts Attended:** {agg.get('total_concerts_attended', 0)}\n"
         md += f"- **Artists with Concert Attendance:** {agg.get('unique_artists_with_concerts', 0)}\n\n"
         
-        # Top artists by playcount
         md += "## Top Artists (by Last.fm playcount)\n\n"
         for artist, data in agg.get("top_artists_by_playcount", [])[:15]:
             concerts = data.get("concerts_attended", 0)
