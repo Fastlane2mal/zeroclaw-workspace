@@ -24,7 +24,6 @@
 - All six personas operational with MANDATORY FIRST STEP protocol
 - Frank, Ziggy, neutral mode confirmed working in testing
 - Bob self-managing project from workspace via Telegram ✅
-- **Persona state persistence** — active persona survives system restart/ZeroClaw restart via `.persona-state` file ✅
 
 ### Dual-Mode Workflow ✅
 - Bob (Telegram): day-to-day tasks, file edits, quick commands, status updates
@@ -130,19 +129,15 @@ None. Phase 8 ready for user implementation.
 
 ## Recent Changes
 
-### 2026-02-25 (Session 9)
-- **Persona state persistence implemented** — `.persona-state` file tracks active persona
-- On ZeroClaw startup, reads `.persona-state` and auto-activates saved persona
-- Seamless continuation after system restart or ZeroClaw restart
-- All persona switches now write state immediately
-- Current state: `null` (neutral mode)
-
-### 2026-02-25 (Session 8)
-- **Session 8 complete** — Phase 15 MCP server researched, Node.js options evaluated
+### 2026-02-26 (Session 8)
+- **Session 8 complete** — Calendar MCP researched, Node.js options evaluated, Logseq replaced, LiteLLM fixed
 - Selected `@cocal/google-calendar-mcp` as MCP server (nspady, 964 stars)
-- Confirmed Node.js not installed; evaluated rpm-ostree vs nvm vs toolbox
-- rpm-ostree recommended (cleanest for systemd service); decision deferred
-- Full implementation plan documented in SESSIONS.md
+- Confirmed Node.js not installed; rpm-ostree recommended; decision deferred
+- Replaced Logseq with VS Code; confirmed AnythingLLM covers knowledge base
+- Fixed LiteLLM config: added Gemini 2.0 Flash as primary, Groq/Haiku/Ollama fallback chain
+- Resolved 401 auth error — LITELLM_MASTER_KEY now wired into ZeroClaw config.toml
+- Gemini free tier rate limit hit during testing — fallback to Groq confirmed working
+- Identified Last.fm + Setlist.fm as music-profile.md data sources; Python script planned
 
 ### 2026-02-25 (Session 7)
 - Created logseq-fresh-start.md with step-by-step reset instructions

@@ -16,10 +16,11 @@ Log of Claude sessions working on the platform. Most recent session first.
   - rpm-ostree: reboot required, cleanest for systemd (recommended)
   - nvm: no reboot, but Silverblue npm prefix conflict needs workaround
   - toolbox: clean install, but needs wrapper script for systemd service
-- Documented full Phase 15 implementation plan (Google Cloud setup, OAuth, config.toml, persona updates)
-- Node.js installation method decision deferred to next session
+- Debugged and fixed LiteLLM config — identified 401 auth error (LITELLM_MASTER_KEY not in ZeroClaw config), missing GEMINI_API_KEY in container env, and model name mismatch
+- Confirmed fallback chain working — Gemini hit free tier rate limit (429), Groq handled requests automatically
+- Identified Last.fm and Setlist.fm as rich data sources for music-profile.md — Python ingestion script planned
 - Replaced Logseq with VS Code as workspace markdown editor
-- Confirmed AnythingLLM covers knowledge base/RAG — Logseq was only ever an editor
+- Confirmed AnythingLLM covers knowledge base — Logseq's knowledge base features were never needed
 
 ### Key Decisions
 - MCP server: `@cocal/google-calendar-mcp` (nspady, 964 stars, most maintained)
@@ -29,6 +30,10 @@ Log of Claude sessions working on the platform. Most recent session first.
 - ZeroClaw MCP config syntax to verify with `zeroclaw config schema | grep -A 20 mcp`
 - VS Code replaces Logseq — open `\\silverblue-ai\zeroclaw\workspace` as a folder
 - Knowledge base = AnythingLLM; editor = VS Code; no overlap needed
+- LiteLLM fallback chain: Gemini 2.0 Flash → Groq → Claude Haiku → Ollama
+- LITELLM_MASTER_KEY must be set in ZeroClaw config.toml `api_key` field
+- Gemini free tier rate limit hit — resolution (1.5 Flash or billing) deferred
+- Music profile to be populated via Last.fm + Setlist.fm Python ingestion script
 
 ### Next Session
 1. Install VS Code on Windows, open workspace via Samba share

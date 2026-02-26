@@ -35,7 +35,6 @@ of the Silverblue AI Workspace. Update this as new decisions are made.
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
-| 2026-02-25 | Persona state persistence via `.persona-state` file | Survives system restarts and ZeroClaw restarts; seamless continuation without manual re-triggering; file-based approach is simple, reliable, and git-compatible |
 | 2026-02-24|Added Joy (travel planner) as sixth persona|Clear use case for research-heavy planning with budget tracking and itinerary generation; natural fit with other lifestyle assistants
 | 2026-02-24|Joy's project folder: workspace/projects/travel-planning/ with /trips, /ideas, /research subfolders|Organizes by trip stage: research (exploring options) → ideas (saved for later) → trips (confirmed/completed)
 | 2026-02-24|Created shared/travel-profile.md for Joy's reference|Captures travel style, preferences, budget ranges, constraints, and past trip learnings; helps Joy learn from experience
@@ -45,6 +44,23 @@ of the Silverblue AI Workspace. Update this as new decisions are made.
 | 2026-02-23 | Use SOUL.md / IDENTITY.md format for personas (not system prompt) | ZeroClaw's identity.format = "openclaw" supports this natively — cleaner than embedding in config.toml |
 | 2026-02-23 | Investigate Skills system (SKILL.toml) for persona switching | Skills inject prompts/tools at runtime — potentially the right mechanism for switching between Frank, Penny, Bob, Len, Ziggy |
 | 2026-02-23 | Frank is the first persona to activate fully | Most work already done; meal planner is clearest use case |
+
+### LiteLLM
+
+| Date | Decision | Rationale |
+|------|----------|-----------|
+| 2026-02-26 | Gemini 2.0 Flash as primary LLM via LiteLLM | Fast, cheap, free tier available; fits personal use case |
+| 2026-02-26 | Fallback chain: Groq → Claude Haiku → Ollama qwen2.5:3b → qwen2.5:1.5b | Groq is fast/free; Haiku reliable; Ollama works offline |
+| 2026-02-26 | LITELLM_MASTER_KEY required in ZeroClaw config.toml | LiteLLM proxy enforces auth; ZeroClaw must send key in api_key field |
+| 2026-02-26 | Gemini rate limit resolution deferred | Free tier quota hit during testing; options: switch to gemini-1.5-flash or enable billing |
+
+### Music Profile
+
+| Date | Decision | Rationale |
+|------|----------|-----------|
+| 2026-02-26 | Populate music-profile.md via Last.fm and Setlist.fm APIs rather than manually | 16,476 scrobbles and full gig history available via free APIs — far richer than manual entry |
+| 2026-02-26 | Use a Python script run by Bob to ingest Last.fm/Setlist.fm data | No Node.js required; Bob can refresh on demand; writes structured summary to music-profile.md |
+| 2026-02-26 | Deezer deferred — lower priority | Likely redundant given Last.fm coverage; requires OAuth for user data |
 
 ### Content Curator (Len)
 
@@ -109,20 +125,6 @@ These need to be resolved as we build:
 ---
 
 ## Completed Tasks
-
-### Session 9: Persona State Persistence (2026-02-25)
-
-**Result:** Seamless persona continuation across system restarts
-
-**Completed:**
-- Implemented `.persona-state` file at workspace root
-- Auto-activation on ZeroClaw startup if persona was active before restart
-- All persona switches now persist state immediately
-- Tested and verified working
-
-**Key feature:** Users can switch to any persona and system restart won't lose the context — persona auto-activates on next ZeroClaw startup.
-
----
 
 ### Session 7: Logseq Setup Planning & Calendar Integration Design (2026-02-25)
 
