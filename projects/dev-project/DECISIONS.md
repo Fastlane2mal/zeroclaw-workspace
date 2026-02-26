@@ -52,7 +52,7 @@ of the Silverblue AI Workspace. Update this as new decisions are made.
 | 2026-02-26 | Gemini 2.0 Flash as primary LLM via LiteLLM | Fast, cheap, free tier available; fits personal use case |
 | 2026-02-26 | Fallback chain: Groq → Claude Haiku → Ollama qwen2.5:3b → qwen2.5:1.5b | Groq is fast/free; Haiku reliable; Ollama works offline |
 | 2026-02-26 | LITELLM_MASTER_KEY required in ZeroClaw config.toml | LiteLLM proxy enforces auth; ZeroClaw must send key in api_key field |
-| 2026-02-26 | Gemini rate limit resolution deferred | Free tier quota hit during testing; options: switch to gemini-1.5-flash or enable billing |
+| 2026-02-26 | Gemini rate limit resolution: three API keys (GOOGLE_API_KEY_1/2/3) | LiteLLM round-robins across all three keys under same model_name; triples free tier to ~4,500 req/day before Groq fallback; ZeroClaw config unchanged |
 
 ### Music Profile
 
