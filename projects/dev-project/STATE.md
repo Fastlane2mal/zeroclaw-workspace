@@ -1,8 +1,8 @@
 # Silverblue AI Workspace — Development State
 
-**Last updated:** 2026-02-25  
-**Current phase:** Phase 8 (profile population) partially complete / Phase 15 (Calendar MCP) in progress  
-**Status:** Node.js install decision pending; Google Cloud setup not yet started
+**Last updated:** 2026-02-26  
+**Current phase:** Phase 8 (profile population) — ready to proceed  
+**Status:** LiteLLM multi-key config complete; Gemini/Groq quotas reset tomorrow
 
 ---
 
@@ -11,12 +11,22 @@
 ### Infrastructure ✅
 - Fedora Silverblue 40 base system
 - Ollama (qwen2.5:3b, qwen2.5:1.5b, nomic-embed-text)
-- LiteLLM (Claude Haiku via API gateway, Podman quadlet, port 4000)
+- LiteLLM (Podman quadlet, port 4000) — multi-key pool config
 - ZeroClaw v0.1.6 (systemd user service running)
 - Git workspace with auto-commit (15 min) and auto-push (1 hour)
 - Samba share (Windows access for VS Code/AnythingLLM)
 - GitHub private repo (Fastlane2mal/zeroclaw-workspace)
 - SSH key auth for GitHub
+
+### LiteLLM Configuration ✅
+- Primary: 3x Gemini 2.5 Flash keys (GOOGLE_API_KEY_1/2/3) — round-robin pool (~4,500 req/day)
+- Fallback 1: 2x Groq llama-3.3-70b keys (GROQ_API_KEY_1/2) — pool (~200,000 TPD)
+- Fallback 2: Ollama qwen2.5:3b (offline, last resort)
+- Fallback 3: Ollama qwen2.5:1.5b (smallest, last resort)
+- Haiku available explicitly but not in auto fallback chain
+- model_group_alias: default → gemini-flash pool
+- Rate limits: rpm/tpm per deployment
+- Ollama timeout: 120s
 
 ### Persona System ✅
 - SOUL.md at workspace root — neutral coordinator
@@ -35,25 +45,23 @@
 
 ### Phase 8: Profile Population ⬅️ CURRENT FOCUS
 
-**Status:** Partially complete — some profiles filled, remainder to be done via VS Code
+**Status:** Ready — VS Code setup complete, profiles need populating
 
-**Editor change:** Logseq replaced with VS Code (open source, intuitive, works directly on Samba share)
-**Knowledge base:** AnythingLLM covers this — Logseq's knowledge base features were never needed
+**Editor:** VS Code (open `\\silverblue-ai\zeroclaw\workspace` as a folder)
+**Knowledge base:** AnythingLLM covers this — no Logseq needed
 
 **User Tasks:**
-- [ ] Install VS Code on Windows (if not already installed)
-- [ ] Open `\\silverblue-ai\zeroclaw\workspace` as a folder in VS Code
-- [ ] Complete shared/dietary-profile.md (Malcolm & Jen preferences)
-- [ ] Complete shared/location.md (South Shields, seasonal produce)
+- [ ] shared/dietary-profile.md — Malcolm & Jen preferences
+- [ ] shared/location.md — South Shields, seasonal produce
 - [ ] Verify health-profile.md gitignored, then populate (local only)
-- [ ] Complete shared/music-profile.md (for Penny & Ziggy)
-- [ ] Complete shared/travel-profile.md (for Joy)
-- [ ] Complete shared/user-profile.md (household info)
-- [ ] Complete projects/meal-planner/pantry.md (current kitchen inventory)
+- [ ] shared/music-profile.md — musical taste, gig preferences
+- [ ] shared/travel-profile.md — travel style, budget, past trips
+- [ ] shared/user-profile.md — general household info
+- [ ] projects/meal-planner/pantry.md — current kitchen inventory
 
-### Phase 9: Frank Full Implementation
+### Phase 9: Frank (Meal Planner) Full Implementation
 
-**Prerequisites:** Phase 8 complete (profiles populated)
+**Prerequisites:** Phase 8 complete
 
 #### Core
 - [ ] Test Frank reading pantry.md
@@ -69,7 +77,6 @@
 - [ ] Cross-reference with dietary-profile.md
 - [ ] Filter disliked ingredients (Malcolm: raw tomatoes / Jen: uncooked cheese)
 - [ ] Save shortlist to projects/meal-planner/new-recipes.md
-- [ ] Decide: on-demand only, or part of Sunday routine?
 
 #### Automation
 - [ ] Investigate ZeroClaw cron payload format
@@ -78,59 +85,47 @@
 
 ---
 
-## Phase 15: Google Calendar Integration ⬅️ ALSO IN PROGRESS
+## Phase 15: Google Calendar Integration
 
-**Status:** Research complete, Node.js install pending, then ready to implement
+**Status:** Research complete, Node.js install pending
 
-**Implementation time:** ~3 hours
+**Guide:** phase-15-calendar-implementation.md
 
-**What It Enables:**
-
-**Joy (Travel Planner):**
-- Queries past holidays from calendar
-- Learns destination preferences, timing patterns, trip duration
-- Avoids suggesting recently visited places
-- Checks calendar for commitments affecting trip dates
-
-**Ziggy (Gig Finder):**
-- Queries past gig attendance from calendar
-- Learns favourite artists, venues, gig frequency
-- References past attendance: "You saw [Artist] in 2019 — they're back!"
-- Checks calendar for availability on recommended gig dates
-
-**Frank (Meal Planner):**
-- Checks calendar for restaurant bookings
-- Skips meal planning for nights with dinner plans
-- Notes dinner parties needing extra shopping
-- Suggests quick meals before late events
-
-**Method:** MCP (Model Context Protocol) server
-- Native ZeroClaw support
-- Secure OAuth tokens in ~/.zeroclaw/secrets/ (gitignored)
-- Read-only access (calendar.readonly scope)
-- Extensible to Gmail, Drive, Contacts, Spotify later
-
-**Available Guide:** phase-15-calendar-implementation.md
+**Prerequisites:** Phases 8-14 complete
 
 ---
 
 ## Not Yet Started
 - Phase 10: AnythingLLM connection
-- Phases 11-14: Len, Ziggy, Penny, Joy full activation (without calendar)
+- Phases 11-14: Len, Ziggy, Penny, Joy full activation
 - Phase 15: Google Calendar Integration
 
 ---
 
 ## Current Blockers
 
-None. Phase 8 ready for user implementation.
+None. Gemini/Groq quotas exhausted today from debugging — reset tomorrow morning.
 
 ---
 
 ## Recent Changes
 
+### 2026-02-26 (Session 9)
+- Three Gemini API keys configured as round-robin pool (GOOGLE_API_KEY_1/2/3)
+- Two Groq API keys configured as fallback pool (GROQ_API_KEY_1/2)
+- Root cause fixed: quoted API key values in ~/.silverblue-ai-config causing %22 URL encoding
+- Confirmed os.environ/ is correct LiteLLM format
+- Fixed duplicate general_settings in config.yaml
+- Fixed YAML syntax error in fallbacks section
+- model_group_alias maps default → gemini-flash pool
+- Explicit fallback entries for both gemini-flash and default
+- Rate limits moved to per-deployment rpm/tpm in litellm_params
+- Ollama timeout increased to 120s
+- All three gemini-flash entries confirmed loading ✅
+- 200 OK responses confirmed ✅
+
 ### 2026-02-26 (Session 8)
-- **Session 8 complete** — Calendar MCP researched, Node.js options evaluated, Logseq replaced, LiteLLM fixed
+- Session 8 complete — Calendar MCP researched, Node.js options evaluated, Logseq replaced, LiteLLM fixed
 - Selected `@cocal/google-calendar-mcp` as MCP server (nspady, 964 stars)
 - Confirmed Node.js not installed; rpm-ostree recommended; decision deferred
 - Replaced Logseq with VS Code; confirmed AnythingLLM covers knowledge base
@@ -148,7 +143,7 @@ None. Phase 8 ready for user implementation.
 - Updated all project files
 
 ### 2026-02-24
-- **Phases 5, 6, 7 complete** — persona switching, Bob operational, all personas updated
+- Phases 5, 6, 7 complete — persona switching, Bob operational, all personas updated
 - Promoted Logseq to Phase 8 (before Frank) — needed for editing shared profiles
 - Added Frank recipe research feature to Phase 9 plan
 - Switched pantry from SQLite (food.db) to markdown (pantry.md)
@@ -160,22 +155,28 @@ None. Phase 8 ready for user implementation.
 
 ## Next Session Tasks
 
-**For User (next session):**
-1. Install VS Code, open workspace via `\\silverblue-ai\zeroclaw\workspace`
-2. Complete remaining profile files
-3. Decide on Node.js install method for Phase 15
+**For User:**
+1. Verify Gemini keys working after quota reset (send message to Bob in Telegram)
+2. Populate remaining profile files via VS Code
+3. Decide Node.js install method for Phase 15
 
 **For Claude (next session):**
 1. Verify profiles populated
-2. Begin Phase 15 Node.js + Google Cloud setup
+2. Write Last.fm/Setlist.fm Python ingestion script for music-profile.md
+3. Begin Phase 15 Node.js + Google Cloud setup
 
 ## Key Learnings
 
+- API key values must be unquoted in ~/.silverblue-ai-config — LiteLLM URL-encodes quoted values
+- os.environ/ is the correct format for config.yaml env var references
+- Duplicate general_settings blocks — later block silently overrides earlier
+- model_group_alias alone doesn't resolve fallbacks — explicit entry needed per group name
+- rate_limits is not a valid top-level LiteLLM config key — use rpm/tpm per deployment
 - file_read paths are relative to workspace root — never absolute
 - SOUL.md loads from workspace root
 - [[tools]] not needed in SKILL.toml for ZeroClaw built-ins
 - Explicit file_read syntax + MANDATORY heading required for reliable on-activation reads
 - Bob can self-correct his own persona file
-- VS Code is the right editor for the workspace — open Samba share as a folder, no app-specific concepts
-- MCP servers are the proper way to integrate external data sources (calendar, Gmail, etc.)
+- VS Code is the right editor for the workspace — open Samba share as a folder
+- MCP servers are the proper way to integrate external data sources
 - health-profile.md must be gitignored (never committed to GitHub)

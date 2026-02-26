@@ -49,10 +49,18 @@ of the Silverblue AI Workspace. Update this as new decisions are made.
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-02-26 | Three Gemini API keys configured as pool (GOOGLE_API_KEY_1/2/3) | Triples free tier to ~4,500 req/day; LiteLLM round-robins across keys automatically |
+| 2026-02-26 | Two Groq API keys configured as pool (GROQ_API_KEY_1/2) | Doubles Groq free tier to ~200,000 TPD before Ollama fallback |
+| 2026-02-26 | API keys stored without quotes in ~/.silverblue-ai-config | LiteLLM URL-encodes quoted values (%22) causing invalid key errors — bare values required |
+| 2026-02-26 | os.environ/ format confirmed correct for LiteLLM config.yaml | Quotes in env file were root cause of key resolution failures, not the format itself |
+| 2026-02-26 | Rate limits defined per-deployment via rpm/tpm in litellm_params | rate_limits is not a valid top-level config key; per-deployment limits prevent 429s proactively |
+| 2026-02-26 | Ollama timeout set to 120s | Default 30s too short for local model under load; Ollama is last resort only |
+| 2026-02-26 | model_group_alias maps default → gemini-flash pool | ZeroClaw requests model=default; alias routes to 3-key Gemini pool for round-robin |
+| 2026-02-26 | Fallbacks defined for both gemini-flash and default | model_group_alias alone insufficient; explicit fallback entry needed for each model group name |
+| 2026-02-26 | general_settings must have single block with both port and master_key | Duplicate general_settings blocks cause later block to override earlier; master_key was being silently dropped |
 | 2026-02-26 | Gemini 2.0 Flash as primary LLM via LiteLLM | Fast, cheap, free tier available; fits personal use case |
-| 2026-02-26 | Fallback chain: Groq → Claude Haiku → Ollama qwen2.5:3b → qwen2.5:1.5b | Groq is fast/free; Haiku reliable; Ollama works offline |
+| 2026-02-26 | Fallback chain: Groq pool → Ollama | Groq is fast/free; Ollama works offline; Haiku moved to explicit-only (not auto fallback) |
 | 2026-02-26 | LITELLM_MASTER_KEY required in ZeroClaw config.toml | LiteLLM proxy enforces auth; ZeroClaw must send key in api_key field |
-| 2026-02-26 | Gemini rate limit resolution: three API keys (GOOGLE_API_KEY_1/2/3) | LiteLLM round-robins across all three keys under same model_name; triples free tier to ~4,500 req/day before Groq fallback; ZeroClaw config unchanged |
 
 ### Music Profile
 
@@ -125,6 +133,28 @@ These need to be resolved as we build:
 ---
 
 ## Completed Tasks
+
+### Session 9: LiteLLM Multi-Key Configuration (2026-02-26)
+
+**Result:** LiteLLM fully configured with key pooling and correct fallback chain
+
+**Completed:**
+- Three Gemini API keys configured as round-robin pool
+- Two Groq API keys configured as fallback pool
+- Root cause of all key failures identified and fixed (quoted values in env file)
+- config.yaml restructured: single general_settings block, correct fallback syntax
+- model_group_alias routing default → gemini-flash pool
+- Rate limits moved to per-deployment rpm/tpm
+- Ollama timeout increased to 120s
+
+**Key learnings:**
+- API key values must be unquoted in ~/.silverblue-ai-config
+- os.environ/ is correct format — quotes were the problem
+- Duplicate general_settings blocks silently drop the first block's values
+- model_group_alias alone doesn't resolve fallbacks — explicit entry needed per group
+- rate_limits is not a valid top-level LiteLLM config key
+
+---
 
 ### Session 7: Logseq Setup Planning & Calendar Integration Design (2026-02-25)
 
@@ -287,3 +317,4 @@ workspace/
 | Spotify MCP integration | After calendar MCP proven in Phase 15 |
 | Gmail MCP integration | After calendar MCP proven in Phase 15 |
 | Google Drive MCP integration | After calendar MCP proven in Phase 15 |
+| Anthropic Haiku in auto fallback chain | Moved to explicit-only; Ollama preferred for cost/privacy |

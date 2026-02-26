@@ -15,17 +15,25 @@ Check off items as completed. Update STATE.md after each session.
 
 ---
 
-## LiteLLM — Outstanding Items
+## LiteLLM ✅ COMPLETE (Session 9)
 
-- [ ] Decide on Gemini rate limit resolution: switch to `gemini-1.5-flash` OR enable billing on Google AI Studio
+- [x] Three Gemini API keys as round-robin pool (GOOGLE_API_KEY_1/2/3)
+- [x] Two Groq API keys as fallback pool (GROQ_API_KEY_1/2)
+- [x] Fix quoted API keys in ~/.silverblue-ai-config
+- [x] Fix duplicate general_settings in config.yaml
+- [x] Fix YAML syntax error in fallbacks
+- [x] model_group_alias: default → gemini-flash pool
+- [x] Rate limits via rpm/tpm per deployment
+- [x] Ollama timeout 120s
 - [ ] Write Last.fm / Setlist.fm Python ingestion script for `shared/music-profile.md`
 - [ ] Test Bob running the ingestion script on demand
+- [ ] Verify all three Gemini keys working after quota reset
 
 ---
 
-## Phase 8: Profile Population ✅ IN PROGRESS ⬅️ YOU ARE HERE
+## Phase 8: Profile Population ⬅️ YOU ARE HERE
 
-**Editor:** VS Code (replaces Logseq — open source, open `\\silverblue-ai\zeroclaw\workspace` as a folder)
+**Editor:** VS Code (open `\\silverblue-ai\zeroclaw\workspace` as a folder)
 **Note:** Knowledge base is AnythingLLM's job — no Logseq needed
 
 ### Setup VS Code
@@ -188,3 +196,4 @@ Check off items as completed. Update STATE.md after each session.
 - [ ] Travel deal alerts (Joy)
 - [ ] Joy + Ziggy trip coordination (concerts + travel)
 - [ ] workspace-backup/ cleanup
+- [ ] Add Anthropic Haiku back to auto fallback chain if Ollama quality insufficient

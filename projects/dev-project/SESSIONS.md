@@ -4,6 +4,49 @@ Log of Claude sessions working on the platform. Most recent session first.
 
 ---
 
+## Session 9 — 2026-02-26
+
+**Focus:** LiteLLM multi-key configuration and debugging
+
+### Completed
+- Added three Gemini API keys (GOOGLE_API_KEY_1/2/3) as round-robin pool
+- Added two Groq API keys (GROQ_API_KEY_1/2) as fallback pool
+- Diagnosed root cause of all key failures: quoted values in ~/.silverblue-ai-config causing %22 URL encoding
+- Confirmed os.environ/ is correct LiteLLM format — quotes were the root cause, not the format
+- Fixed duplicate general_settings sections in config.yaml (port and master_key were in separate blocks)
+- Fixed YAML syntax error in fallbacks (missing - prefix before gemini-flash)
+- Fixed master_key not loading — added to general_settings in config.yaml
+- Replaced separate default model entry with model_group_alias mapping default → gemini-flash pool
+- Added explicit fallback entries for both gemini-flash and default model groups
+- Moved rate limiting to per-deployment rpm/tpm in litellm_params (rate_limits is not valid top-level key)
+- Increased Ollama timeout to 120s (default 30s too short under load)
+- Confirmed all three gemini-flash entries loading correctly ✅
+- Confirmed 200 OK responses working via Groq/Ollama while Gemini quota exhausted ✅
+- Gemini 2.5 Flash adopted (upgraded from 2.0 Flash)
+
+### Key Decisions
+- API key values must have no quotes in ~/.silverblue-ai-config
+- os.environ/ format is correct for config.yaml — confirmed by official docs
+- model_group_alias maps default → gemini-flash but fallbacks still need explicit default entry
+- rate_limits is not a valid top-level config key; use rpm/tpm per deployment instead
+- Ollama struggles under load with long contexts — last resort only
+- Both gemini-flash and default need explicit fallback chain entries
+
+### Issues Encountered
+- Quoted API keys → %22 URL encoding → all providers failing with invalid key
+- Duplicate general_settings → master_key not loaded → 400 auth errors
+- YAML syntax error in fallbacks → intermittent failures
+- model_group_alias alone insufficient — explicit fallback entry needed per model group
+- Gemini and Groq quotas exhausted during debugging session — reset next day
+
+### Next Session
+1. Verify all three Gemini keys working after quota reset
+2. Continue Phase 8 — populate remaining profile files via VS Code
+3. Decide Node.js install method for Phase 15 Calendar MCP
+4. Write Last.fm / Setlist.fm Python ingestion script for music-profile.md
+
+---
+
 ## Session 8 — 2026-02-25
 
 **Focus:** Phase 15 — Google Calendar MCP research, Node.js planning, and Logseq → VS Code switch
