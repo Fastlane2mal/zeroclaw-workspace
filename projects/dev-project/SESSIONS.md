@@ -4,6 +4,56 @@ Log of Claude sessions working on the platform. Most recent session first.
 
 ---
 
+## Session 10 — 2026-02-27
+
+**Focus:** LiteLLM config finalisation — desktop PC as primary, named groups, correct fallback chain
+
+### Completed
+- Added desktop PC Ollama (qwen2.5:7b-instruct at 192.168.0.10:11434) as primary model
+- Added Windows Firewall rule for port 11434 and set OLLAMA_HOST=0.0.0.0
+- Confirmed Silverblue can reach desktop Ollama via curl
+- Debugged order parameter — confirmed it requires enable_pre_call_checks: true but still doesn't reliably cascade on timeout
+- Switched to named model groups (ollama-pc, cloud, local) with explicit fallbacks — proven reliable approach
+- Combined Gemini 3-key pool and Groq 2-key pool into single cloud group
+- Removed redundant default fallback entry — model_group_alias covers it
+- Confirmed fallback_on_rate_limit is not a valid parameter — removed
+- Confirmed port handled by container Exec command, not config.yaml
+- Confirmed LITELLM_MASTER_KEY picked up automatically from environment
+- Confirmed server_settings not needed — all covered externally
+- Upgraded LiteLLM to latest (v1.81.12) via podman pull + service restart
+- Enabled podman-auto-update.timer for automatic future updates
+
+### Key Decisions
+- Named model groups + explicit fallbacks more reliable than order parameter for cross-provider fallback
+- ollama-pc → cloud → local is the correct fallback chain
+- Gemini and Groq combined in single cloud pool — natural round-robin across 5 deployments
+- model_group_alias default → ollama-pc covers ZeroClaw's model=default requests
+- Redundant default fallback entry unnecessary when alias is defined
+- fallback_on_rate_limit not a valid parameter — RateLimitErrorAllowedFails handles this
+- port set via container Exec (--port 4000), not config.yaml
+- LITELLM_MASTER_KEY auto-read from environment — no need in config.yaml
+- server_settings block not needed in config.yaml
+
+### Issues Encountered
+- order parameter doesn't cascade on timeout even with enable_pre_call_checks: true
+- fallback_on_rate_limit caused unexpected behaviour — not a valid parameter
+- Desktop Ollama timing out at 25s — model cold-start on Windows takes time
+- Local Ollama going into cooldown from earlier failures blocking all fallbacks
+
+### Final config.yaml structure
+- ollama-pc: qwen2.5:7b-instruct at 192.168.0.10:11434
+- cloud: 3x Gemini 2.5 Flash + 2x Groq llama-3.3-70b (round-robin pool)
+- local: qwen2.5:3b + qwen2.5:1.5b on localhost
+- haiku + embeddings: explicit use only
+- Fallback chain: ollama-pc → cloud → local
+
+### Next Session
+1. Verify fallback chain working correctly after config applied
+2. Continue Phase 8 — populate profile files via VS Code
+3. Decide Node.js install method for Phase 15 Calendar MCP
+
+---
+
 ## Session 9 — 2026-02-26
 
 **Focus:** LiteLLM multi-key configuration and debugging

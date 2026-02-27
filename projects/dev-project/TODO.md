@@ -15,19 +15,25 @@ Check off items as completed. Update STATE.md after each session.
 
 ---
 
-## LiteLLM ✅ COMPLETE (Session 9)
+## LiteLLM ✅ COMPLETE (Sessions 9 & 10)
 
 - [x] Three Gemini API keys as round-robin pool (GOOGLE_API_KEY_1/2/3)
 - [x] Two Groq API keys as fallback pool (GROQ_API_KEY_1/2)
 - [x] Fix quoted API keys in ~/.silverblue-ai-config
 - [x] Fix duplicate general_settings in config.yaml
 - [x] Fix YAML syntax error in fallbacks
-- [x] model_group_alias: default → gemini-flash pool
-- [x] Rate limits via rpm/tpm per deployment
-- [x] Ollama timeout 120s
+- [x] Named model groups: ollama-pc, cloud, local
+- [x] model_group_alias: default → ollama-pc
+- [x] Fallback chain: ollama-pc → cloud → local
+- [x] Gemini + Groq combined in cloud pool
+- [x] Desktop PC Ollama added as primary (192.168.0.10:11434)
+- [x] Windows Firewall rule for port 11434
+- [x] OLLAMA_HOST=0.0.0.0 on Windows desktop
+- [x] LiteLLM upgraded to v1.81.12
+- [x] Auto-update timer enabled
 - [ ] Write Last.fm / Setlist.fm Python ingestion script for `shared/music-profile.md`
 - [ ] Test Bob running the ingestion script on demand
-- [ ] Verify all three Gemini keys working after quota reset
+- [ ] Verify fallback chain working correctly (ollama-pc → cloud → local)
 
 ---
 

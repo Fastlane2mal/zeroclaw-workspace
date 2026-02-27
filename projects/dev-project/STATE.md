@@ -19,14 +19,15 @@
 - SSH key auth for GitHub
 
 ### LiteLLM Configuration ✅
-- Primary: 3x Gemini 2.5 Flash keys (GOOGLE_API_KEY_1/2/3) — round-robin pool (~4,500 req/day)
-- Fallback 1: 2x Groq llama-3.3-70b keys (GROQ_API_KEY_1/2) — pool (~200,000 TPD)
-- Fallback 2: Ollama qwen2.5:3b (offline, last resort)
-- Fallback 3: Ollama qwen2.5:1.5b (smallest, last resort)
+- Version: 1.81.12 (auto-update enabled via podman-auto-update.timer)
+- Primary (ollama-pc): qwen2.5:7b-instruct on desktop PC at 192.168.0.10:11434
+- Fallback 1 (cloud): 3x Gemini 2.5 Flash + 2x Groq llama-3.3-70b — round-robin pool
+- Fallback 2 (local): qwen2.5:3b + qwen2.5:1.5b on localhost Ollama
 - Haiku available explicitly but not in auto fallback chain
-- model_group_alias: default → gemini-flash pool
-- Rate limits: rpm/tpm per deployment
-- Ollama timeout: 120s
+- model_group_alias: default → ollama-pc
+- Fallback chain: ollama-pc → cloud → local
+- port/host: set in container Exec command (--port 4000 --host 0.0.0.0)
+- master_key: auto-read from LITELLM_MASTER_KEY environment variable
 
 ### Persona System ✅
 - SOUL.md at workspace root — neutral coordinator
@@ -109,6 +110,15 @@ None. Gemini/Groq quotas exhausted today from debugging — reset tomorrow morni
 ---
 
 ## Recent Changes
+
+### 2026-02-27 (Session 10)
+- Desktop PC Ollama added as primary model (qwen2.5:7b-instruct at 192.168.0.10:11434)
+- Windows Firewall rule added for port 11434; OLLAMA_HOST=0.0.0.0 set on Windows
+- Switched to named model groups: ollama-pc, cloud, local
+- Gemini and Groq combined into single cloud pool
+- Removed redundant default fallback entry and invalid fallback_on_rate_limit parameter
+- Confirmed port/master_key handled externally — server_settings not needed
+- LiteLLM upgraded to v1.81.12; auto-update timer enabled
 
 ### 2026-02-26 (Session 9)
 - Three Gemini API keys configured as round-robin pool (GOOGLE_API_KEY_1/2/3)

@@ -49,17 +49,24 @@ of the Silverblue AI Workspace. Update this as new decisions are made.
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-02-27 | Final config uses three named model groups: ollama-pc, cloud, local | Named groups with explicit fallbacks proven reliable; order parameter alone insufficient for cross-provider fallback |
+| 2026-02-27 | model_group_alias maps default → ollama-pc | ZeroClaw requests model=default; alias routes to desktop PC as primary |
+| 2026-02-27 | Gemini and Groq combined into single cloud pool | Round-robins across 5 deployments (3 Gemini + 2 Groq) naturally; no separate fallback between them needed |
+| 2026-02-27 | Fallback chain: ollama-pc → cloud → local | Desktop PC primary; cloud (Gemini+Groq) fallback; local Ollama last resort |
+| 2026-02-27 | Redundant default fallback entry removed | model_group_alias default → ollama-pc means ollama-pc fallbacks cover default requests; separate default entry unnecessary |
+| 2026-02-27 | fallback_on_rate_limit removed — not a valid parameter | Rate limit fallbacks handled automatically via allowed_fails_policy.RateLimitErrorAllowedFails |
+| 2026-02-27 | order parameter requires enable_pre_call_checks: true | order alone without pre_call_checks doesn't cascade on timeout; named groups + explicit fallbacks more reliable |
+| 2026-02-27 | port handled by container Exec command (--port 4000) not config.yaml | Confirmed in litellm.container Exec line; no need for port in config.yaml |
+| 2026-02-27 | LITELLM_MASTER_KEY picked up automatically from environment | Built-in special variable; no need to set master_key in config.yaml |
+| 2026-02-27 | server_settings not needed — host/port in container Exec, master_key in env | Cleaner config with nothing sensitive hardcoded |
+| 2026-02-27 | Desktop PC Ollama (qwen2.5:7b-instruct at 192.168.0.10:11434) added as primary | More capable local model; free; private; falls back to cloud automatically when PC is off |
+| 2026-02-27 | Windows Firewall rule added for port 11434 | Required for Silverblue to reach Ollama on Windows desktop |
+| 2026-02-27 | OLLAMA_HOST=0.0.0.0 set on Windows desktop | Required for Ollama to listen on all interfaces, not just localhost |
 | 2026-02-26 | Three Gemini API keys configured as pool (GOOGLE_API_KEY_1/2/3) | Triples free tier to ~4,500 req/day; LiteLLM round-robins across keys automatically |
 | 2026-02-26 | Two Groq API keys configured as pool (GROQ_API_KEY_1/2) | Doubles Groq free tier to ~200,000 TPD before Ollama fallback |
 | 2026-02-26 | API keys stored without quotes in ~/.silverblue-ai-config | LiteLLM URL-encodes quoted values (%22) causing invalid key errors — bare values required |
 | 2026-02-26 | os.environ/ format confirmed correct for LiteLLM config.yaml | Quotes in env file were root cause of key resolution failures, not the format itself |
-| 2026-02-26 | Rate limits defined per-deployment via rpm/tpm in litellm_params | rate_limits is not a valid top-level config key; per-deployment limits prevent 429s proactively |
-| 2026-02-26 | Ollama timeout set to 120s | Default 30s too short for local model under load; Ollama is last resort only |
-| 2026-02-26 | model_group_alias maps default → gemini-flash pool | ZeroClaw requests model=default; alias routes to 3-key Gemini pool for round-robin |
-| 2026-02-26 | Fallbacks defined for both gemini-flash and default | model_group_alias alone insufficient; explicit fallback entry needed for each model group name |
 | 2026-02-26 | general_settings must have single block with both port and master_key | Duplicate general_settings blocks cause later block to override earlier; master_key was being silently dropped |
-| 2026-02-26 | Gemini 2.0 Flash as primary LLM via LiteLLM | Fast, cheap, free tier available; fits personal use case |
-| 2026-02-26 | Fallback chain: Groq pool → Ollama | Groq is fast/free; Ollama works offline; Haiku moved to explicit-only (not auto fallback) |
 | 2026-02-26 | LITELLM_MASTER_KEY required in ZeroClaw config.toml | LiteLLM proxy enforces auth; ZeroClaw must send key in api_key field |
 
 ### Music Profile
