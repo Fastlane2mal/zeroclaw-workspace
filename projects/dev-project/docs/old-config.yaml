@@ -1,0 +1,111 @@
+model_list:
+  - model_name: ollama-network
+    litellm_params:
+      model: ollama/qwen2.5:7b-instruct
+      api_base: http://192.168.0.10:11434
+      timeout: 120
+      rpm: 10
+  # ─────────────────────────────────────────
+  # PRIMARY: Google Gemini Flash (3-key pool)
+  # ─────────────────────────────────────────
+  - model_name: gemini-flash
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: os.environ/GOOGLE_API_KEY_1
+      rpm: 15
+      tpm: 1000000
+
+  - model_name: gemini-flash
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: os.environ/GOOGLE_API_KEY_2
+      rpm: 15
+      tpm: 1000000
+
+  - model_name: gemini-flash
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: os.environ/GOOGLE_API_KEY_3
+      rpm: 15
+      tpm: 1000000
+  # ─────────────────────────────────────────
+  # GROQ POOL: free-tier, fast
+  # ─────────────────────────────────────────
+  - model_name: groq-flash
+    litellm_params:
+      model: groq/llama-3.3-70b-versatile
+      api_key: os.environ/GROQ_API_KEY_1
+      rpm: 30
+      tpm: 6000
+
+  - model_name: groq-flash
+    litellm_params:
+      model: groq/llama-3.3-70b-versatile
+      api_key: os.environ/GROQ_API_KEY_2
+      rpm: 30
+      tpm: 6000
+  # ─────────────────────────────────────────
+  # FALLBACK 1: Ollama local (offline)
+  # ─────────────────────────────────────────
+  - model_name: ollama-fallback
+    litellm_params:
+      model: ollama/qwen2.5:3b
+      api_base: http://localhost:11434
+
+  - model_name: ollama-fallback-small
+    litellm_params:
+      model: ollama/qwen2.5:1.5b
+      api_base: http://localhost:11434
+
+  # ─────────────────────────────────────────
+  # OPTIONAL: Anthropic Claude Haiku (explicit only)
+  # ─────────────────────────────────────────
+  - model_name: haiku-fallback
+    litellm_params:
+      model: anthropic/claude-3-haiku-20240307
+      api_key: os.environ/ANTHROPIC_API_KEY
+
+  # ─────────────────────────────────────────
+  # EMBEDDINGS: nomic-embed-text via Ollama
+  # ─────────────────────────────────────────
+  - model_name: embeddings
+    litellm_params:
+      model: ollama/nomic-embed-text
+      api_base: http://localhost:11434
+
+# ─────────────────────────────────────────
+# ROUTER SETTINGS
+# ─────────────────────────────────────────
+router_settings:
+  model_group_alias:
+    default: ollama-network
+    gemini: gemini-flash
+    groq: groq-flash
+    ollama: ollama-fallback
+
+  fallbacks:
+    - ollama-network:
+        - gemini-flash
+        - groq-flash
+        - ollama-fallback
+        - ollama-fallback-small
+    - gemini-flash:
+        - groq-flash
+        - ollama-fallback
+        - ollama-fallback-small
+
+    # Note: Anthropic Claude NOT included in automatic fallback
+
+  num_retries: 1            # retry once per deployment
+  retry_after: 10           # wait 10s before retrying same deployment
+  allowed_fails: 1          # fail fast to trigger fallback
+  cooldown_time: 60         # cooldown failing deployments
+  fallback_on_rate_limit: true  # immediately move to next pool on 429
+
+litellm_settings:
+  drop_params: true
+  request_timeout: 30
+
+general_settings:
+  port: os.environ/LITELLM_PROXY_PORT
+  master_key: os.environ/LITELLM_MASTER_KEY
