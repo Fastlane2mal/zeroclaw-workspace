@@ -1,0 +1,7 @@
+# LLM Routing Config
+# Test config for LLM routing through LiteLLM
+llm_routing:
+  enabled: true
+  lite_llm:
+    host: localhost
+    port: 8080
