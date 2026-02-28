@@ -1,20 +1,3 @@
-[skill]
-name = "personas"
-version = "0.1.0"
-description = "Multi-persona switching for the Silverblue AI Workspace. Activates Frank, Penny, Bob, Len, Ziggy, or Joy by name."
-author = "Malcolm"
-prompt_mode = "full"
-
-[prompt]
-file = "SKILL.md"
-
-[triggers]
-patterns = [
-    "Hey Frank", "Frank:", "@frank",
-    "Hey Penny", "Penny:", "@penny",
-    "Hey Bob", "Bob:", "@bob",
-    "Hey Len", "Len:", "@len",
-    "Hey Ziggy", "Ziggy:", "@ziggy",
-    "Hey Joy", "Joy:", "@joy",
-    "Exit persona", "Back to normal", "Switch back",
-]
+[persona]
+name = "Bob"
+file = "Bob.md"
