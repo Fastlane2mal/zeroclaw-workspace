@@ -4,53 +4,60 @@ Log of Claude sessions working on the platform. Most recent session first.
 
 ---
 
-## Session 10 — 2026-02-27
+## Session 11 — 2026-02-28
 
-**Focus:** LiteLLM config finalisation — desktop PC as primary, named groups, correct fallback chain
+**Focus:** Simplification — Bob-only persona, LiteLLM stripped back, tool calling fixed
 
 ### Completed
-- Added desktop PC Ollama (qwen2.5:7b-instruct at 192.168.0.10:11434) as primary model
-- Added Windows Firewall rule for port 11434 and set OLLAMA_HOST=0.0.0.0
-- Confirmed Silverblue can reach desktop Ollama via curl
-- Debugged order parameter — confirmed it requires enable_pre_call_checks: true but still doesn't reliably cascade on timeout
-- Switched to named model groups (ollama-pc, cloud, local) with explicit fallbacks — proven reliable approach
-- Combined Gemini 3-key pool and Groq 2-key pool into single cloud group
-- Removed redundant default fallback entry — model_group_alias covers it
-- Confirmed fallback_on_rate_limit is not a valid parameter — removed
-- Confirmed port handled by container Exec command, not config.yaml
-- Confirmed LITELLM_MASTER_KEY picked up automatically from environment
-- Confirmed server_settings not needed — all covered externally
-- Upgraded LiteLLM to latest (v1.81.12) via podman pull + service restart
-- Enabled podman-auto-update.timer for automatic future updates
+- Reassessed strategy — decided to focus on single working persona (Bob) before expanding
+- Simplified LiteLLM config — removed desktop PC Ollama and local Ollama tiers
+- Started with Groq as primary — confirmed tool calling broken (raw syntax output)
+- Investigated Gemini — confirmed same tool calling incompatibility
+- Identified root cause: ZeroClaw requires Claude-compatible tool call format; Llama-based models incompatible
+- Switched to OpenRouter auto router as primary — free models with tool calling support
+- Confirmed OpenRouter $10 lifetime credit unlocks 1000 free req/day permanently
+- Confirmed tool calling working — Bob reading/writing files via Telegram ✅ (slightly slow but functional)
+- Resolved Bob persona file path issue — file is at personas/BOB.md (uppercase)
+- Confirmed other personas archived to personas/archive/ by Bob
+- Deferred profile population — not needed until other personas reactivated
+- Updated all project files
 
 ### Key Decisions
-- Named model groups + explicit fallbacks more reliable than order parameter for cross-provider fallback
-- ollama-pc → cloud → local is the correct fallback chain
-- Gemini and Groq combined in single cloud pool — natural round-robin across 5 deployments
-- model_group_alias default → ollama-pc covers ZeroClaw's model=default requests
-- Redundant default fallback entry unnecessary when alias is defined
-- fallback_on_rate_limit not a valid parameter — RateLimitErrorAllowedFails handles this
-- port set via container Exec (--port 4000), not config.yaml
-- LITELLM_MASTER_KEY auto-read from environment — no need in config.yaml
-- server_settings block not needed in config.yaml
+- openrouter/auto as primary — only confirmed ZeroClaw-compatible free option
+- Groq/Gemini demoted to fallback — conversational only, no tool calling
+- Bob-only persona until platform fully stable
+- Profile population deferred — no value without other personas active
+- Claude Haiku via OpenRouter is upgrade path if free tier becomes unreliable
 
 ### Issues Encountered
-- order parameter doesn't cascade on timeout even with enable_pre_call_checks: true
-- fallback_on_rate_limit caused unexpected behaviour — not a valid parameter
-- Desktop Ollama timing out at 25s — model cold-start on Windows takes time
-- Local Ollama going into cooldown from earlier failures blocking all fallbacks
+- Groq llama-3.3-70b outputs raw tool call syntax — ZeroClaw tool calling broken
+- Gemini same issue — not Claude-compatible tool format
+- Bob persona file uppercase (BOB.md) caused path resolution failure
+- OpenRouter auto router slightly slow — expected on free shared infrastructure
 
 ### Final config.yaml structure
-- ollama-pc: qwen2.5:7b-instruct at 192.168.0.10:11434
-- cloud: 3x Gemini 2.5 Flash + 2x Groq llama-3.3-70b (round-robin pool)
-- local: qwen2.5:3b + qwen2.5:1.5b on localhost
-- haiku + embeddings: explicit use only
-- Fallback chain: ollama-pc → cloud → local
+- Primary (default): openrouter/auto via OpenRouter API
+- Fallback 1 (groq): 2x Groq llama-3.3-70b-versatile
+- Fallback 2 (gemini): 3x Gemini 2.5 Flash
+- Fallback chain: openrouter/auto → groq → gemini
 
 ### Next Session
-1. Verify fallback chain working correctly after config applied
-2. Continue Phase 8 — populate profile files via VS Code
-3. Decide Node.js install method for Phase 15 Calendar MCP
+1. Ask Bob to read updated project files
+2. Assign Bob first productive task — Last.fm/Setlist.fm ingestion script
+3. Use Bob to help build out remaining platform components
+
+---
+
+## Session 10 — 2026-02-27
+
+**Focus:** LiteLLM config finalisation — desktop PC as primary, named groups, fallback chain
+
+### Completed
+- Added desktop PC Ollama (qwen2.5:7b-instruct at 192.168.0.10:11434) as primary
+- Switched to named model groups (ollama-pc, cloud, local) with explicit fallbacks
+- Combined Gemini 3-key pool and Groq 2-key pool into single cloud group
+- Upgraded LiteLLM to v1.61.12; enabled podman-auto-update.timer
+- *(Config since superseded by Session 11 simplification)*
 
 ---
 
@@ -59,84 +66,24 @@ Log of Claude sessions working on the platform. Most recent session first.
 **Focus:** LiteLLM multi-key configuration and debugging
 
 ### Completed
-- Added three Gemini API keys (GOOGLE_API_KEY_1/2/3) as round-robin pool
-- Added two Groq API keys (GROQ_API_KEY_1/2) as fallback pool
-- Diagnosed root cause of all key failures: quoted values in ~/.silverblue-ai-config causing %22 URL encoding
-- Confirmed os.environ/ is correct LiteLLM format — quotes were the root cause, not the format
-- Fixed duplicate general_settings sections in config.yaml (port and master_key were in separate blocks)
-- Fixed YAML syntax error in fallbacks (missing - prefix before gemini-flash)
-- Fixed master_key not loading — added to general_settings in config.yaml
-- Replaced separate default model entry with model_group_alias mapping default → gemini-flash pool
-- Added explicit fallback entries for both gemini-flash and default model groups
-- Moved rate limiting to per-deployment rpm/tpm in litellm_params (rate_limits is not valid top-level key)
-- Increased Ollama timeout to 120s (default 30s too short under load)
-- Confirmed all three gemini-flash entries loading correctly ✅
-- Confirmed 200 OK responses working via Groq/Ollama while Gemini quota exhausted ✅
-- Gemini 2.5 Flash adopted (upgraded from 2.0 Flash)
-
-### Key Decisions
-- API key values must have no quotes in ~/.silverblue-ai-config
-- os.environ/ format is correct for config.yaml — confirmed by official docs
-- model_group_alias maps default → gemini-flash but fallbacks still need explicit default entry
-- rate_limits is not a valid top-level config key; use rpm/tpm per deployment instead
-- Ollama struggles under load with long contexts — last resort only
-- Both gemini-flash and default need explicit fallback chain entries
-
-### Issues Encountered
-- Quoted API keys → %22 URL encoding → all providers failing with invalid key
-- Duplicate general_settings → master_key not loaded → 400 auth errors
-- YAML syntax error in fallbacks → intermittent failures
-- model_group_alias alone insufficient — explicit fallback entry needed per model group
-- Gemini and Groq quotas exhausted during debugging session — reset next day
-
-### Next Session
-1. Verify all three Gemini keys working after quota reset
-2. Continue Phase 8 — populate remaining profile files via VS Code
-3. Decide Node.js install method for Phase 15 Calendar MCP
-4. Write Last.fm / Setlist.fm Python ingestion script for music-profile.md
+- Added three Gemini API keys as round-robin pool
+- Added two Groq API keys as fallback pool
+- Diagnosed root cause: quoted values in ~/.silverblue-ai-config causing %22 URL encoding
+- Fixed duplicate general_settings sections in config.yaml
+- Confirmed 200 OK responses working ✅
 
 ---
 
 ## Session 8 — 2026-02-25
 
-**Focus:** Phase 15 — Google Calendar MCP research, Node.js planning, and Logseq → VS Code switch
+**Focus:** Phase 15 Calendar MCP research, Node.js planning, Logseq → VS Code switch
 
 ### Completed
-- Researched available Google Calendar MCP servers; selected `nspady/google-calendar-mcp` (@cocal/google-calendar-mcp)
-- Confirmed ZeroClaw v0.1.6 supports MCP servers natively
-- Confirmed Node.js not installed on Silverblue (`node: command not found`)
-- Evaluated three Node.js installation options for Silverblue + systemd service use case:
-  - rpm-ostree: reboot required, cleanest for systemd (recommended)
-  - nvm: no reboot, but Silverblue npm prefix conflict needs workaround
-  - toolbox: clean install, but needs wrapper script for systemd service
-- Debugged and fixed LiteLLM config — identified 401 auth error (LITELLM_MASTER_KEY not in ZeroClaw config), missing GEMINI_API_KEY in container env, and model name mismatch
-- Confirmed fallback chain working — Gemini hit free tier rate limit (429), Groq handled requests automatically
-- Identified Last.fm and Setlist.fm as rich data sources for music-profile.md — Python ingestion script planned
-- Replaced Logseq with VS Code as workspace markdown editor
-- Confirmed AnythingLLM covers knowledge base — Logseq's knowledge base features were never needed
-
-### Key Decisions
-- MCP server: `@cocal/google-calendar-mcp` (nspady, 964 stars, most maintained)
-- Joy and Ziggy prioritised for calendar access first (Frank to follow)
-- Node.js installation method: pending (rpm-ostree recommended)
-- Full path to `npx` must be used in config.toml (ZeroClaw systemd service PATH issue)
-- ZeroClaw MCP config syntax to verify with `zeroclaw config schema | grep -A 20 mcp`
-- VS Code replaces Logseq — open `\\silverblue-ai\zeroclaw\workspace` as a folder
-- Knowledge base = AnythingLLM; editor = VS Code; no overlap needed
-- LiteLLM fallback chain: Gemini 2.0 Flash → Groq → Claude Haiku → Ollama
-- LITELLM_MASTER_KEY must be set in ZeroClaw config.toml `api_key` field
-- Gemini free tier rate limit hit — resolution (1.5 Flash or billing) deferred
-- Music profile to be populated via Last.fm + Setlist.fm Python ingestion script
-
-### Next Session
-1. Install VS Code on Windows, open workspace via Samba share
-2. Populate remaining profile files using VS Code
-3. Decide on and install Node.js (rpm-ostree recommended — reboot required)
-4. Set up Google Cloud project and download OAuth credentials JSON
-5. Create `~/.zeroclaw/secrets/`, store credentials, run OAuth flow
-6. Add MCP config to config.toml, verify with `zeroclaw doctor`, restart
-7. Test calendar access via Bob in Telegram
-8. Update JOY.md and ZIGGY.md with calendar integration instructions
+- Selected @cocal/google-calendar-mcp as MCP server
+- Evaluated Node.js installation options; rpm-ostree recommended
+- Replaced Logseq with VS Code as workspace editor
+- Fixed LiteLLM config — resolved 401 auth error
+- Identified Last.fm + Setlist.fm as music-profile.md data sources
 
 ---
 
@@ -145,44 +92,9 @@ Log of Claude sessions working on the platform. Most recent session first.
 **Focus:** Logseq setup planning & Google Calendar integration design
 
 ### Completed
-- Created comprehensive Logseq fresh start guide (wipe old config, clean setup)
-- Created all 7 profile templates:
-  - shared/dietary-profile.md
-  - shared/location.md
-  - shared/health-profile.md (local only, gitignored)
-  - shared/music-profile.md
-  - shared/travel-profile.md
-  - shared/user-profile.md
-  - projects/meal-planner/pantry.md
-- Designed Phase 15: Google Calendar Integration via MCP
-  - Joy learns from past holidays (destinations, timing patterns)
-  - Ziggy learns from past gig attendance (artists, venues)
-  - Frank checks for restaurant bookings and dinner parties
-  - ~3 hour implementation estimate
-- Documented complete MCP setup: OAuth, server installation, persona updates
-- Identified future extensions: Gmail, Drive, Contacts, Spotify (same MCP pattern)
-- Updated all project files (DECISIONS.md, SESSIONS.md, STATE.md, TODO.md)
-
-### Key Decisions
-- Logseq via Samba is proper editing interface for shared profiles
-- Fresh Logseq start: wipe %APPDATA%\Logseq and %LOCALAPPDATA%\Logseq
-- Google Calendar via MCP (Phase 15) for Joy, Ziggy, Frank
-- Calendar tokens in ~/.zeroclaw/secrets/ (gitignored)
-- Read-only calendar access initially (calendar.readonly scope)
-- MCP pattern proven extensible to other Google services
-
-### Outputs Created
-1. `logseq-fresh-start.md` — Step-by-step Logseq reset and workspace connection
-2. `profile-templates.md` — All 7 profile templates with detailed guidance
-3. `google-calendar-integration.md` — Overview of calendar integration options
-4. `phase-15-calendar-implementation.md` — Complete MCP implementation plan
-
-### Next Session (User)
-- Wipe old Logseq config on Windows
-- Connect Logseq to \\silverblue-ai\zeroclaw\workspace
-- Test edit → git auto-commit cycle
-- Populate all 7 profile files with real data
-- Verify profiles committed to git (except health-profile.md)
+- Created all 7 profile templates
+- Designed Phase 15 Google Calendar integration via MCP
+- Created logseq-fresh-start.md, profile-templates.md, phase-15-calendar-implementation.md
 
 ---
 
@@ -192,7 +104,6 @@ Log of Claude sessions working on the platform. Most recent session first.
 
 ### Completed
 - Fixed on-activation read issue: explicit file_read syntax + MANDATORY heading required
-- Bob updated all five remaining persona files via Telegram
 - All six personas now read domain files before every response ✅
 
 ---
@@ -204,7 +115,6 @@ Log of Claude sessions working on the platform. Most recent session first.
 ### Completed
 - Diagnosed file_read path issue (relative to workspace root)
 - Bob read STATE.md, created directories, wrote SESSIONS.md ✅
-- Bob self-corrected BOB.md ✅
 - Dual-mode workflow confirmed live
 
 ---
