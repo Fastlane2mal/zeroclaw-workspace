@@ -41,10 +41,19 @@ Log of Claude sessions working on the platform. Most recent session first.
 - Fallback 2 (gemini): 3x Gemini 2.5 Flash
 - Fallback chain: openrouter/auto → groq → gemini
 
+### Additional Findings (Session 11 continued)
+- openrouter/auto charges — routes to paid models
+- openrouter/free invalid model ID format
+- Kimi K2 has no free tier on OpenRouter
+- gpt-oss-120b:free and gpt-oss-20b:free exist but blocked by OpenRouter privacy settings
+- Enabling "free endpoints that may train on inputs" and "free endpoints that may publish prompts" in OpenRouter privacy settings unlocked free models
+- gpt-oss-20b:free confirmed working — cost:0, OpenAI-format tool calling, ZeroClaw compatible
+- Final config: gpt-oss-20b:free + gpt-oss-120b:free in default group, groq + gemini as fallbacks
+
 ### Next Session
-1. Ask Bob to read updated project files
-2. Assign Bob first productive task — Last.fm/Setlist.fm ingestion script
-3. Use Bob to help build out remaining platform components
+1. Assign Bob first productive task — Last.fm/Setlist.fm ingestion script for shared/music-profile.md
+2. Use Bob for ongoing platform work and troubleshooting
+3. Trim BOB.md — too large, causing Groq token limit errors on fallback
 
 ---
 

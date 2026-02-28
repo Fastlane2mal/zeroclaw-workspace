@@ -21,10 +21,12 @@
 
 ### LiteLLM Configuration ✅
 - Version: 1.81.12 (auto-update enabled via podman-auto-update.timer)
-- Primary: openrouter/auto — routes to best available free model with tool calling support
+- Primary (default): gpt-oss-20b:free + gpt-oss-120b:free via OpenRouter — free, ZeroClaw compatible
 - Fallback 1 (groq): 2x Groq llama-3.3-70b-versatile — round-robin pool
 - Fallback 2 (gemini): 3x Gemini 2.5 Flash — round-robin pool, last resort
-- Fallback chain: openrouter/auto → groq → gemini
+- Fallback chain: openrouter free → groq → gemini
+- NOTE: Groq and Gemini incompatible with ZeroClaw tool calling
+- NOTE: OpenRouter privacy settings must have free endpoint options enabled
 - port/host: set in container Exec command (--port 4000 --host 0.0.0.0)
 - master_key: auto-read from LITELLM_MASTER_KEY environment variable
 
