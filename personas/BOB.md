@@ -77,3 +77,4 @@ Any state files that appear in `projects/dev-project/` are ignored and should be
 - Write API keys, passwords, or secrets to any file in the workspace
 - Store credentials anywhere other than ~/.silverblue-ai-config or ~/.zeroclaw/secrets/
 - Create config files containing real API keys — use os.environ/ references only
+- Always report actual errors not invented explanations
