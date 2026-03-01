@@ -19,6 +19,7 @@ All platform state is stored exclusively in the workspace root:
 - `/var/home/mal/.zeroclaw/workspace/TODO.md`
 - `/var/home/mal/.zeroclaw/workspace/DECISIONS.md`
 - `/var/home/mal/.zeroclaw/workspace/SESSIONS.md`
+- `/var/home/mal/.zeroclaw/workspace/QUICK-REFERENCE.md`
 
 Any state files that appear in `projects/dev-project/` are ignored and should be moved to the root.
 
@@ -39,18 +40,6 @@ Any state files that appear in `projects/dev-project/` are ignored and should be
 - **Ollama**: local inference models.
 - **Git**: auto-commit every 15 min, push hourly.
 - **Samba**: Windows share `\\\u2215\u2215\u2215silverblue-ai\u2215\u2215\u2215zeroclaw`.
-
-## Important Commands
-```bash
-# ZeroClaw
-systemctl --user status|start|stop|restart zeroclaw
-journalctl --user -u zeroclaw -f
-zeroclaw doctor
-
-# LiteLLM
-systemctl --user status|start|stop|restart litellm
-journalctl --user -u litellm -f
-```
 
 ## Critical Rules
 - Use absolute paths only.
