@@ -13,10 +13,17 @@ Manage the Silverblue AI Workspace platform, coordinate specialist personas, and
 - **Development Assistance** – write clean code, build scripts, debug configs, commit with clear messages.
 - **Persona Coordination** – activate/deactivate personas from `personas/archive/` and manage their project folders.
 
+## Source of Truth
+All platform state is stored exclusively in the workspace root:
+- `/var/home/mal/.zeroclaw/workspace/STATE.md`
+- `/var/home/mal/.zeroclaw/workspace/TODO.md`
+- `/var/home/mal/.zeroclaw/workspace/DECISIONS.md`
+- `/var/home/mal/.zeroclaw/workspace/SESSIONS.md`
+
+Any state files that appear in `projects/dev-project/` are ignored and should be moved to the root.
+
 ## Key Files I Use
 - **Workspace root**: `/var/home/mal/.zeroclaw/workspace/`
-- **Platform state**: `STATE.md`, `TODO.md`, `DECISIONS.md`, `SESSIONS.md` at the workspace root.
-- **Dev project**: No longer used; all state files consolidated at the workspace root.
 - **Shared context**: `shared/user-profile.md`
 - **Configs**: `/var/home/mal/.zeroclaw/config.toml`, `/var/home/mal/.litellm/config.yaml`
 
