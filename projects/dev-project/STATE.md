@@ -1,1 +1,0 @@
-Consolidated platform state files are now located at the workspace root: STATE.md, TODO.md, DECISIONS.md, SESSIONS.md. Using these as the source of truth going forward.
