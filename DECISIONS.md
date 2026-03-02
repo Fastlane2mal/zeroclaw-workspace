@@ -158,3 +158,16 @@ of the Silverblue AI Workspace. Update this as new decisions are made.
 | Gmail/Drive MCP | After calendar MCP proven |
 | workspace-backup/ cleanup | Delete once confident nothing missed |
 | Branch workflow for significant changes | Direct-to-main fine for current stage |
+
+---
+
+### Session 11 Additional Decisions (2026-03-01)
+
+| Date | Decision | Rationale |
+|------|----------|-----------|
+| 2026-03-01 | gpt-oss-20b/120b:free via OpenRouter as primary | Only confirmed free models compatible with ZeroClaw tool calling; OpenAI-format tool use |
+| 2026-03-01 | OpenRouter privacy settings must have free endpoints enabled | Free models blocked by default — enable "free endpoints that may train on inputs" and "free endpoints that may publish prompts" |
+| 2026-03-01 | Multiple OpenRouter accounts can be pooled in LiteLLM | Rate limits are per account not per key — separate accounts multiply free tier capacity |
+| 2026-03-01 | git-filter-repo via toolbox is correct history cleanup method on Silverblue | pip not available on host; toolbox provides mutable container; same home directory accessible |
+| 2026-03-01 | RUNBOOK.md added to workspace root | Bob needs explicit procedures to follow — reduces hallucination and prevents incidents like secrets in git |
+| 2026-03-01 | projects/dev-project/docs/config.yaml added to .gitignore | Prevent recurrence of secrets being committed |

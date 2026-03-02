@@ -5,18 +5,30 @@ Check off items as completed. Update STATE.md after each session.
 
 ---
 
-## LiteLLM ✅ COMPLETE (Sessions 9, 10 & 11)
+## Immediate — Bob Robustness ⬅️ YOU ARE HERE
+
+- [ ] Investigate `systemctl` policy block in ZeroClaw config.toml
+- [ ] Test Bob's standard diagnostic routine end-to-end
+- [ ] Test Bob's session start routine in a fresh session
+- [ ] Verify Bob can read RUNBOOK.md
+- [ ] Update SOUL.md — reflect Bob as default, others archived
+- [ ] Add OPENROUTER_API_KEY_2 to LiteLLM config and ~/.silverblue-ai-config
+- [ ] Write Last.fm/Setlist.fm Python ingestion script for shared/music-profile.md
+- [ ] Test Bob running ingestion script on demand
+
+---
+
+## LiteLLM ✅ COMPLETE
 
 - [x] Three Gemini API keys as round-robin pool
 - [x] Two Groq API keys as fallback pool
 - [x] Fix quoted API keys in ~/.silverblue-ai-config
-- [x] Fix duplicate general_settings in config.yaml
 - [x] Named model groups with explicit fallbacks
-- [x] Simplified to three-tier fallback: openrouter/auto → groq → gemini
+- [x] Simplified to three-tier fallback: openrouter free → groq → gemini
 - [x] Discovered and resolved ZeroClaw tool calling incompatibility with Groq/Gemini
-- [x] OpenRouter auto router confirmed working with ZeroClaw tool calling
+- [x] OpenRouter gpt-oss-20b/120b:free confirmed working with ZeroClaw tool calling
+- [x] OpenRouter privacy settings enabled for free models
 - [x] LiteLLM upgraded to v1.81.12; auto-update timer enabled
-- [ ] Monitor OpenRouter free tier reliability — upgrade to Claude Haiku if needed
 
 ---
 
@@ -26,22 +38,25 @@ Check off items as completed. Update STATE.md after each session.
 - [x] All six persona files created
 - [x] Bob confirmed operational with tool calling
 - [x] Other personas archived to personas/archive/
-- [x] Bob's file path issue resolved (personas/BOB.md)
+- [x] Bob promoted to system orchestrator
+- [x] BOB.md optimised — trimmed, diagnostic routine, secret hygiene
+- [x] RUNBOOK.md created
+- [x] QUICK-REFERENCE.md created and updated
 
 ---
 
-## Bob — Immediate Tasks ⬅️ YOU ARE HERE
+## GitHub ✅ CLEAN
 
-- [ ] Read updated STATE.md and TODO.md
-- [ ] Update projects/dev-project/STATE.md with current platform status
-- [ ] Write Last.fm/Setlist.fm Python ingestion script for shared/music-profile.md
-- [ ] Test ingestion script on demand
+- [x] Secrets purged from git history using git-filter-repo
+- [x] Groq and Anthropic API keys rotated
+- [x] Force push succeeded — no secrets violation
+- [x] projects/dev-project/docs/config.yaml added to .gitignore
 
 ---
 
 ## Phase 8: Profile Population — DEFERRED
 
-**Reason:** Other personas shelved. Resume when personas are reactivated.
+Reason: Other personas shelved. Resume when personas are reactivated.
 
 - [ ] shared/dietary-profile.md
 - [ ] shared/location.md
@@ -54,8 +69,6 @@ Check off items as completed. Update STATE.md after each session.
 ---
 
 ## Phase 9: Frank (Meal Planner) — DEFERRED
-
-**Prerequisites:** Phase 8 complete, Frank restored from archive
 
 - [ ] Restore FRANK.md from personas/archive/
 - [ ] Test Frank reading pantry.md and dietary-profile.md
@@ -73,38 +86,16 @@ Check off items as completed. Update STATE.md after each session.
 
 ---
 
-## Phase 11: Len (Content Curator) — DEFERRED
+## Phases 11-14: Other Personas — DEFERRED
 
-- [ ] Restore LEN.md from personas/archive/
-- [ ] Implement Telegram content forwarding workflow
-
----
-
-## Phase 12: Ziggy (Gig Finder) — DEFERRED
-
-- [ ] Restore ZIGGY.md from personas/archive/
-- [ ] Complete shared/music-profile.md
-- [ ] Test gig search and recommendation workflow
-
----
-
-## Phase 13: Penny (Song Tutor) — DEFERRED
-
-- [ ] Restore PENNY.md from personas/archive/
-- [ ] Initialise projects/song-tutor/progress-log.md
-
----
-
-## Phase 14: Joy (Travel Planner) — DEFERRED
-
-- [ ] Restore JOY.md from personas/archive/
-- [ ] Complete shared/travel-profile.md
+- [ ] Restore and test Len (Content Curator)
+- [ ] Restore and test Ziggy (Gig Finder)
+- [ ] Restore and test Penny (Song Tutor)
+- [ ] Restore and test Joy (Travel Planner)
 
 ---
 
 ## Phase 15: Google Calendar Integration — DEFERRED
-
-**Prerequisites:** Phases 8-14 complete
 
 - [ ] Decide Node.js install method (rpm-ostree recommended)
 - [ ] Install Node.js, verify npx path
@@ -123,3 +114,4 @@ Check off items as completed. Update STATE.md after each session.
 - [ ] Joy + Ziggy trip coordination
 - [ ] workspace-backup/ cleanup
 - [ ] Weekly digest generation (Len)
+- [ ] Add Anthropic Haiku to explicit fallback if free tier unreliable
